@@ -13,3 +13,8 @@
 - git restore - descartar cambios en el directorio de trabajo
 - git commit -m - mensaje del commit - nombre de la variable
 - git add . - agregar todos los cambios del lugar
+
+### actualización de objetivos primarios
+
+- lograr un software/herramienta para automatizar ediciones de imágenes
+- efectos a lograr: duotone, halftone, semitone, etc.

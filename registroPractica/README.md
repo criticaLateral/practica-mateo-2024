@@ -2,6 +2,8 @@
 
 ## 09.08.2024
 
+horas trabajadas incluyendo este día: 11.0
+
 14:00 - 18:00
 
 trabajo remoto en mi casa
@@ -16,6 +18,8 @@ trabajo remoto en mi casa
 
 ## 07.08.2024
 
+horas trabajadas incluyendo este día: 7.0
+
 10:30 - 15:00
 
 trabajo en oficina criti.ca cerca metro Manuel Montt
@@ -29,6 +33,8 @@ trabajo en oficina criti.ca cerca metro Manuel Montt
 ### cómo programar la web con Visual Studio Code
 
 ## 06.08.24
+
+horas trabajadas incluyendo este día: 2.5
 
 en UDP, República 180, 4to piso
 

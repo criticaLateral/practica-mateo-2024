@@ -2,21 +2,60 @@
 
 ## manual para terminal
 
-```bash
+```zsh
 # listar - muestra lo que hay en el directorio
 ls
 ```
 
-- pwd - directorio donde estoy - ruta del archivo
-- cd - change directory - cambiando carpeta
-- cd .. - volver una carpeta atrás
-- history - historial
-- open . - abrir finder donde te encuentras
-- open .. - abrir finder anterior
-- git add - incluir archivo
-- git restore - descartar cambios en el directorio de trabajo
-- git commit -m - mensaje del commit - nombre de la variable
-- git add . - agregar todos los cambios del lugar
+```zsh
+# directorio donde estoy - ruta del archivo
+pwd 
+```
+
+```zsh
+# change directory - ir a carpeta X
+cd X
+```
+
+```zsh
+#  ir una carpeta atrás
+cd ..
+```
+
+```zsh
+# imprimir historial
+history
+```
+
+```zsh
+# abrir finder donde te encuentras
+open . 
+```
+
+```zsh
+- incluir archivo X
+git add X
+```
+
+```zsh
+- incluir todos los cambios en el directorio actual
+git add .
+```
+
+```zsh
+# hacer un commit en mi máquina con un mensaje
+git commit -m "MENSAJE"
+```
+
+```zsh
+# subir los cambios a la nube
+git push 
+```
+
+```zsh
+# deshacer cambios en el directorio de trabajo
+git stash
+```
 
 ## actualización de objetivos primarios
 

@@ -1,8 +1,12 @@
 # practica-mateo-2024
 
-## manual básico para terminal
+## manual para terminal
 
-- ls - listar - muestra lo que hay en el directorio
+```bash
+# listar - muestra lo que hay en el directorio
+ls
+```
+
 - pwd - directorio donde estoy - ruta del archivo
 - cd - change directory - cambiando carpeta
 - cd .. - volver una carpeta atrás

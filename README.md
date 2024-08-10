@@ -53,6 +53,11 @@ git push
 ```
 
 ```zsh
+# incorporar a mi máquina los cambios desde la nube
+git pull 
+```
+
+```zsh
 # deshacer cambios en el directorio de trabajo
 git stash
 ```

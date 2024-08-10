@@ -16,5 +16,5 @@
 
 ## actualización de objetivos primarios
 
-- lograr un software/herramienta para automatizar ediciones de imágenes
-- efectos a lograr: duotone, halftone, semitone, etc.
+- escribir y documentar un software / herramienta para automatizar ediciones de material gráfico
+- efectos a lograr: duotone, halftone, semitone.

@@ -15,15 +15,8 @@ import {
 // import fontHeavySlanted from "./assets/PPObjectSans-HeavySlanted.otf";
 
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { width, height, dates, artist, title, image, color } =
+  const { width, height, image, color } =
     inputs;
-  const artistText = artist.toUpperCase();
-  const titleText = title.toUpperCase();
-  const datesText = dates.toUpperCase();
-
-  let artistElement;
-  let datesElement;
-  let titleElement;
 
   const rows = 32;
   const separation = height / rows;
@@ -58,66 +51,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // sketch.textFont(objSansRegular);
   };
 
-  const drawArtistElement = () => {
-    const element = {};
-    element.baseRowSize = randInt(3, 6);
-    element.baseSize = element.baseRowSize * separation;
-
-    const words = artistText.split(" ");
-    sketch.textSize(element.baseSize * 0.8);
-    // sketch.textFont(objSansHeavySlanted);
-    const lengths = words.map(t => sketch.textWidth(t));
-    element.length = Math.max(width / 3, ...lengths) + width / 20;
-
-    element.startRow = choice(
-      getPossibleStartPositions(
-        availableRows,
-        element.baseRowSize * words.length + 1
-      )
-    );
-    element.endRow =
-      element.startRow + words.length * (element.baseRowSize - 1);
-    element.y = element.startRow * separation;
-    element.x1 = 0;
-    element.x2 = element.length + element.x1;
-
-    let x = element.x1;
-    while (x < width) {
-      for (let i = 0; i < words.length; i++) {
-        sketch.text(
-          words[i],
-          x,
-          element.y + (i + 1) * (element.baseSize - separation)
-        );
-      }
-      x += element.length;
-    }
-
-    return element;
-  };
-
-  const drawTitleElement = () => {
-    const element = {};
-    element.baseRowSize = 2;
-    element.baseSize = element.baseRowSize * separation;
-
-    sketch.textSize(element.baseSize);
-    sketch.textStyle(sketch.NORMAL);
-    element.length = sketch.textWidth(titleText) + width / 20;
-
-    element.startRow = choice(
-      getPossibleStartPositions(availableRows, element.baseRowSize + 1)
-    );
-    element.endRow = element.startRow + element.baseRowSize;
-    element.y = element.startRow * separation;
-    element.x1 = 0;
-    element.x2 = element.x1 + element.length;
-
-    sketch.text(titleText, 0, element.y + element.baseSize);
-
-    return element;
-  };
-  
   const drawRectangle = ({ rx, ry, rw, rh }) => {
     if (img) {
       const rectRatio = rw / rh;
@@ -135,79 +68,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       sketch.image(imgGraphic, rx, ry, rw, rh, sx, sy, sw, sh);
     } else {
       sketch.rect(rx, ry, rw, rh);
-    }
-  };
-
-  const drawRectangles = () => {
-    const maxUsedSpace = Math.max(
-      artistElement.x2,
-      titleElement.x2,
-      datesElement.x2
-    );
-    const canThereBeTwoColumns = width - maxUsedSpace > width / 4 + width / 20;
-    const columnLength = width / 4;
-    let bigColumnDrawn = false;
-    if (canThereBeTwoColumns && flipCoin()) {
-      bigColumnDrawn = true;
-    }
-
-    const elementRows = getRowsFromElements([titleElement, datesElement]);
-    const usedSections = getSections(elementRows, 3);
-    const freeSections = getSections(availableRows, 3);
-    const sections = [
-      ...getRandomSubsetSections(
-        freeSections,
-        freeSections.length > 2
-          ? randInt(freeSections.length - 2, freeSections.length)
-          : freeSections.length
-      ),
-      ...getRandomSubsetSections(usedSections, randInt(0, usedSections.length))
-    ];
-
-    for (const section of sections) {
-      const [row, rowLength] = section;
-      const rectRowHeight = rowLength;
-      const separateInColumns = bigColumnDrawn || flipCoin();
-      const offset = getIntersectionOffset(
-        {
-          startRow: row,
-          endRow: row + rowLength - 1
-        },
-        [titleElement, datesElement]
-      );
-      const leftWidth = width - offset;
-      const rectY = row * separation;
-      const rectHeight = rectRowHeight * separation;
-      if (separateInColumns) {
-        drawRectangle({
-          rx: offset,
-          ry: rectY,
-          rw: leftWidth - (columnLength + width / 20),
-          rh: rectHeight
-        });
-        drawRectangle({
-          rx: width - columnLength,
-          ry: rectY,
-          rw: columnLength,
-          rh: rectHeight
-        });
-      } else {
-        drawRectangle({
-          rx: offset,
-          ry: rectY,
-          rw: leftWidth,
-          rh: rectHeight
-        });
-      }
-    }
-
-    if (bigColumnDrawn) {
-      drawRectangle({
-        rx: width - columnLength,
-        ry: 0,
-        rw: width - columnLength,
-        rh: height
-      });
     }
   };
 
@@ -232,17 +92,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     drawGrid();
 
-    artistElement = drawArtistElement();
-
-    removeRowsUsedByElement(availableRows, artistElement);
-
-    titleElement = drawTitleElement();
-
-    datesElement = drawDatesElement();
-
-    removeRowsUsedByElement(availableRows, titleElement);
-    removeRowsUsedByElement(availableRows, datesElement);
-
     drawRectangles();
 
     mechanic.done();
@@ -250,18 +99,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 };
 
 export const inputs = {
-  dates: {
-    type: "text",
-    default: "Sept 9 – Oct 30, 2021"
-  },
-  artist: {
-    type: "text",
-    default: "Tyler Mitchell"
-  },
-  title: {
-    type: "text",
-    default: "Dreaming in Real Time"
-  },
   image: {
     type: "image"
   },

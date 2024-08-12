@@ -62,9 +62,27 @@ git pull
 git stash
 ```
 
-## instrucciones para lanzar el proyecto desde consola
+## instrucciones para lanzar el proyecto desde terminal
 
-TODO mateo
+```zsh
+# iniciar nuevo proyecto
+npm init mechanic@latest my-project
+```
+
+```zsh
+# ir al directorio del proyecto
+cd my-project
+```
+
+```zsh
+# correr el proyecto
+npm run dev
+```
+
+```zsh
+# instalar node_modules
+npm install
+```
 
 ## actualización de objetivos primarios
 

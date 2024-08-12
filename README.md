@@ -62,6 +62,10 @@ git pull
 git stash
 ```
 
+## instrucciones para lanzar el proyecto desde consola
+
+TODO mateo
+
 ## actualización de objetivos primarios
 
 - escribir y documentar un software / herramienta para automatizar ediciones de material gráfico

@@ -1,8 +1,22 @@
 # registroPractica
 
+## 12.08.2024
+
+horas trabajadas incluyendo este día: 22.5
+
+trabajo en oficina criti.ca
+
+### pruebas para insertar imagen en el canvas 
+
+### resolución de preguntas y errores
+
+### renderizar una imagen en el canvas con mechanic design
+
+10:30 - 18:00
+
 ## 09.08.2024
 
-horas trabajadas incluyendo este día: 11.0
+horas trabajadas incluyendo este día: 14.0
 
 14:00 - 18:00
 
@@ -18,7 +32,7 @@ trabajo remoto en mi casa
 
 ## 07.08.2024
 
-horas trabajadas incluyendo este día: 7.0
+horas trabajadas incluyendo este día: 10.0
 
 10:30 - 15:00
 
@@ -34,7 +48,7 @@ trabajo en oficina criti.ca cerca metro Manuel Montt
 
 ## 06.08.24
 
-horas trabajadas incluyendo este día: 2.5
+horas trabajadas incluyendo este día: 4.5
 
 en UDP, República 180, 4to piso
 

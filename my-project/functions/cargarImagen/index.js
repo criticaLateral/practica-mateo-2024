@@ -14,16 +14,25 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
-    // imgGraphic.filter(imgGraphic.GRAY);
-    // imgGraphic.blendMode(imgGraphic.MULTIPLY);
-    // imgGraphic.noStroke();
+    imgGraphic.filter(imgGraphic.GRAY);
+    imgGraphic.blendMode(imgGraphic.MULTIPLY);
+    imgGraphic.noStroke();
     // imgGraphic.fill(color);
     // imgGraphic.rect(0, 0, img.width, img.height);
-    // imgGraphic.blendMode(imgGraphic.BLEND);
+    imgGraphic.blendMode(imgGraphic.BLEND);
   };
 
   const putImageOnCanvas = () => {
-    sketch.image(imgGraphic, 0, 0);
+  // https://editor.p5js.org/enickles/sketches/QpS9ujOuL
+  // vertical
+  if (imgGraphic.height >= imgGraphic.width) {
+    sketch.image(imgGraphic, 0, 0, imgGraphic.width * (height / imgGraphic.height), imgGraphic.height * (height / imgGraphic.height));
+    // Horizontal
+  } else if (imgGraphic.width > imgGraphic.height) {
+
+    sketch.image(imgGraphic, 0, 0, imgGraphic.width * (width / imgGraphic.width), imgGraphic.height * (width / imgGraphic.width));
+  } 
+    // sketch.image(imgGraphic, 0, 0, sketch.width, sketch.height, 0, 0, imgGraphic.width,  imgGraphic.height);
   };
 
 
@@ -50,6 +59,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     if (img)  {
       putImageOnCanvas();
     }
+
 
     mechanic.done();
   };

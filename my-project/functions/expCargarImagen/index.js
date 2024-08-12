@@ -15,12 +15,11 @@ import {
 // import fontHeavySlanted from "./assets/PPObjectSans-HeavySlanted.otf";
 
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { width, height, dates, location, artist, title, image, color } =
+  const { width, height, dates, artist, title, image, color } =
     inputs;
   const artistText = artist.toUpperCase();
   const titleText = title.toUpperCase();
   const datesText = dates.toUpperCase();
-  const locationText = location.toUpperCase();
 
   let artistElement;
   let datesElement;
@@ -118,107 +117,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     return element;
   };
-
-  const drawDatesElement = () => {
-    const element = {};
-    element.isSingleRow = flipCoin();
-    element.baseRowSize = 1;
-    element.baseSize = element.baseRowSize * separation;
-
-    sketch.textSize(element.baseSize * 0.8);
-    // sketch.textFont(objSansHeavy);
-    const minLength =
-      (element.isSingleRow
-        ? sketch.textWidth(datesText) +
-          width / 20 +
-          sketch.textWidth(locationText)
-        : Math.max(
-            sketch.textWidth(datesText),
-            sketch.textWidth(locationText)
-          )) +
-      width / 20;
-
-    if (minLength + titleElement.length >= width) {
-      const rowsWithoutDescription = [...availableRows];
-      removeRowsUsedByElement(rowsWithoutDescription, titleElement);
-      element.startRow = choice(
-        getPossibleStartPositions(
-          rowsWithoutDescription,
-          (element.isSingleRow ? 1 : 2) * element.baseRowSize + 1
-        )
-      );
-    } else {
-      element.startRow = choice(
-        getPossibleStartPositions(
-          availableRows,
-          (element.isSingleRow ? 1 : 2) * element.baseRowSize + 1
-        )
-      );
-    }
-    element.endRow =
-      element.startRow + (element.isSingleRow ? 1 : 2) * element.baseRowSize;
-    element.y = element.startRow * separation;
-    const offset = getIntersectionOffset(element, [titleElement]);
-    const leftWidth = width - offset;
-    element.midDistance = randInt(
-      Math.floor(leftWidth / 20),
-      Math.floor(leftWidth / 4)
-    );
-    element.length =
-      (element.isSingleRow
-        ? Math.max(
-            leftWidth / 2,
-            sketch.textWidth(datesText) +
-              element.midDistance +
-              sketch.textWidth(locationText)
-          )
-        : Math.max(
-            leftWidth / 4,
-            Math.max(
-              sketch.textWidth(datesText),
-              sketch.textWidth(locationText)
-            )
-          )) +
-      leftWidth / 20;
-    element.x1 =
-      offset +
-      (flipCoin() ? 0 : randInt(0, Math.floor(leftWidth - element.length)));
-    element.x2 = element.x1 + element.length;
-
-    const [first, second] = flipCoin()
-      ? [datesText, locationText]
-      : [locationText, datesText];
-
-    if (element.isSingleRow) {
-      sketch.text(first, element.x1, element.y + element.baseSize);
-      sketch.text(
-        second,
-        element.x1 + sketch.textWidth(first) + element.midDistance,
-        element.y + element.baseSize
-      );
-    } else {
-      const alignDateRight = flipCoin();
-      if (alignDateRight) {
-        sketch.textAlign(sketch.RIGHT);
-      }
-      sketch.text(
-        first,
-        alignDateRight ? element.x2 - leftWidth / 20 : element.x1,
-        element.y + element.baseSize
-      );
-      sketch.text(
-        second,
-        alignDateRight ? element.x2 - leftWidth / 20 : element.x1,
-        element.y + 2 * element.baseSize
-      );
-      if (alignDateRight) {
-        sketch.textAlign(sketch.LEFT);
-      }
-    }
-
-    return element;
-  };
-
+  
   const drawRectangle = ({ rx, ry, rw, rh }) => {
     if (img) {
       const rectRatio = rw / rh;
@@ -354,10 +253,6 @@ export const inputs = {
   dates: {
     type: "text",
     default: "Sept 9 – Oct 30, 2021"
-  },
-  location: {
-    type: "text",
-    default: "Jack Shainman Gallery"
   },
   artist: {
     type: "text",

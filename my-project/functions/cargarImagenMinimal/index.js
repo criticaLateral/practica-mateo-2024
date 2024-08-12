@@ -32,6 +32,9 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   let img;
   let imgGraphic;
+  let objSansRegular;
+  let objSansHeavy;
+  let objSansHeavySlanted;
 
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);

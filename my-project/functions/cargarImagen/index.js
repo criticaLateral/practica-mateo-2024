@@ -1,18 +1,4 @@
-import {
-  getPossibleStartPositions,
-  removeRowsUsedByElement,
-  getSections,
-  getIntersectionOffset,
-  getRowsFromElements,
-  getRandomSubsetSections,
-  choice,
-  flipCoin,
-  randInt
-} from "./utils.js";
 
-// import fontRegular from "./assets/PPObjectSans-Regular.otf";
-// import fontHeavy from "./assets/PPObjectSans-Heavy.otf";
-// import fontHeavySlanted from "./assets/PPObjectSans-HeavySlanted.otf";
 
 export const handler = ({ inputs, mechanic, sketch }) => {
   const { width, height, image, color } =
@@ -28,12 +14,16 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
-    imgGraphic.filter(imgGraphic.GRAY);
-    imgGraphic.blendMode(imgGraphic.MULTIPLY);
-    imgGraphic.noStroke();
-    imgGraphic.fill(color);
-    imgGraphic.rect(0, 0, img.width, img.height);
-    imgGraphic.blendMode(imgGraphic.BLEND);
+    // imgGraphic.filter(imgGraphic.GRAY);
+    // imgGraphic.blendMode(imgGraphic.MULTIPLY);
+    // imgGraphic.noStroke();
+    // imgGraphic.fill(color);
+    // imgGraphic.rect(0, 0, img.width, img.height);
+    // imgGraphic.blendMode(imgGraphic.BLEND);
+  };
+
+  const putImageOnCanvas = () => {
+    sketch.image(imgGraphic, 0, 0);
   };
 
 
@@ -56,6 +46,10 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   sketch.draw = () => {
     setStylingBase();
+
+    if (img)  {
+      putImageOnCanvas();
+    }
 
     mechanic.done();
   };

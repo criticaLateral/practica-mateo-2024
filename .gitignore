@@ -1,5 +1,8 @@
 # Apple
 .DS_Store
 
+# build
+build/
+
 # npm
 node_modules/

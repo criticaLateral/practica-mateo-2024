@@ -1,8 +1,8 @@
 # Apple
 .DS_Store
 
-# build
-build/
+# carpeta dist
+dist/
 
 # npm
 node_modules/

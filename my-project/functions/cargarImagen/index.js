@@ -36,18 +36,9 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     imgGraphic.blendMode(imgGraphic.BLEND);
   };
 
-  const drawGrid = () => {
-    sketch.strokeWeight(width / (6 * 500));
-    for (let i = 0; i <= 32; i++) {
-      sketch.line(0, separation * i, width, separation * i);
-    }
-    sketch.strokeWeight(1);
-  };
 
   const setStylingBase = () => {
     sketch.background("white");
-    sketch.stroke(color);
-    sketch.fill(color);
     // sketch.textFont(objSansRegular);
   };
 
@@ -90,8 +81,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.draw = () => {
     setStylingBase();
 
-    drawGrid();
-
     drawRectangles();
 
     mechanic.done();
@@ -102,20 +91,15 @@ export const inputs = {
   image: {
     type: "image"
   },
-  color: {
-    type: "color",
-    default: "#E94225",
-    model: "hex"
-  },
   width: {
     type: "number",
     default: 500,
-    editable: false
+    editable: true
   },
   height: {
     type: "number",
     default: 600,
-    editable: false
+    editable: true
   },
   mySlider: { 
     type: "number", 

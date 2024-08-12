@@ -39,36 +39,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   const setStylingBase = () => {
     sketch.background("white");
-    // sketch.textFont(objSansRegular);
-  };
-
-  const drawRectangle = ({ rx, ry, rw, rh }) => {
-    if (img) {
-      const rectRatio = rw / rh;
-      const imageRatio = imgGraphic.width / imgGraphic.height;
-      const sw =
-        rectRatio > imageRatio
-          ? imgGraphic.width
-          : imgGraphic.height * rectRatio;
-      const sh =
-        rectRatio > imageRatio
-          ? imgGraphic.width / rectRatio
-          : imgGraphic.height;
-      const sx = (imgGraphic.width - sw) / 2;
-      const sy = (imgGraphic.height - sh) / 2;
-      sketch.image(imgGraphic, rx, ry, rw, rh, sx, sy, sw, sh);
-    } else {
-      sketch.rect(rx, ry, rw, rh);
-    }
   };
 
   sketch.preload = () => {
     if (image) {
       img = sketch.loadImage(URL.createObjectURL(image));
     }
-    // objSansRegular = sketch.loadFont(fontRegular);
-    // objSansHeavy = sketch.loadFont(fontHeavy);
-    // objSansHeavySlanted = sketch.loadFont(fontHeavySlanted);
   };
 
   sketch.setup = () => {
@@ -80,8 +56,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   sketch.draw = () => {
     setStylingBase();
-
-    drawRectangles();
 
     mechanic.done();
   };

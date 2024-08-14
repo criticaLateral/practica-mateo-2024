@@ -1,7 +1,7 @@
 
 
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { width, height, image, color } =
+  const { width, height, image, color, nivelPosterize } =
     inputs;
 
   const rows = 32;
@@ -14,7 +14,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
-    imgGraphic.filter(imgGraphic.POSTERIZE);
+    imgGraphic.filter(imgGraphic.POSTERIZE, nivelPosterize);
     imgGraphic.blendMode(imgGraphic.MULTIPLY);
     imgGraphic.noStroke();
     imgGraphic.fill(color);
@@ -151,6 +151,14 @@ export const inputs = {
     slider: true, 
     default: 0 
    },
+   nivelPosterize: { 
+    type: "number", 
+    min: 2, 
+    max: 255, 
+    step: 1, 
+    slider: true, 
+    default: 4 
+   },
    
 };
 
@@ -164,6 +172,11 @@ export const presets = {
   horizontal: {
     width: 1920,
     height: 1080
+  },
+
+  cuadrado: {
+    width: 1920,
+    height: 1920
   },
 };
 

@@ -14,11 +14,11 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
-    imgGraphic.filter(imgGraphic.GRAY);
+    imgGraphic.filter(imgGraphic.POSTERIZE);
     imgGraphic.blendMode(imgGraphic.MULTIPLY);
     imgGraphic.noStroke();
-    // imgGraphic.fill(color);
-    // imgGraphic.rect(0, 0, img.width, img.height);
+    imgGraphic.fill(color);
+    imgGraphic.rect(0, 0, img.width, img.height);
     imgGraphic.blendMode(imgGraphic.BLEND);
   };
 
@@ -38,6 +38,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   const setStylingBase = () => {
     sketch.background("white");
+    sketch.stroke(color);
+    sketch.fill(color);
   };
 
   sketch.preload = () => {
@@ -60,10 +62,11 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       putImageOnCanvas();
     }
 
-
     mechanic.done();
   };
+
 };
+
 
 export const inputs = {
   image: {
@@ -79,6 +82,11 @@ export const inputs = {
     default: 600,
     editable: true
   },
+  color: {
+    type: "color",
+    default: "#E94225",
+    model: "hex"
+  },
   mySlider: { 
     type: "number", 
     min: 0, 
@@ -86,18 +94,21 @@ export const inputs = {
     step: 1, 
     slider: true, 
     default: 0 
-   }
+   },
+   
 };
 
 export const presets = {
-  x2: {
-    width: 1000,
-    height: 1200
+  vertical: {
+    width: 1080,
+    height: 1920
+
+    
   },
-  x4: {
-    width: 1500,
-    height: 1800
-  }
+  horizontal: {
+    width: 1920,
+    height: 1080
+  },
 };
 
 export const settings = {

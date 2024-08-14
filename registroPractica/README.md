@@ -1,8 +1,27 @@
 # registroPractica
 
+## 14.08.2024
+
+horas trabajadas incluyendo este día: 28.0
+
+trabajo en oficina criti.ca
+
+11:00 - 17:30 
+
+### imagen en canvas con resize to fit
+
+### filtros y color blends
+
+### niveles del efecto
+
+### carpeta static para uso de foto default
+
+
 ## 12.08.2024
 
 horas trabajadas incluyendo este día: 22.5
+
+10:30 - 18:00
 
 trabajo en oficina criti.ca
 
@@ -12,7 +31,6 @@ trabajo en oficina criti.ca
 
 ### renderizar una imagen en el canvas con mechanic design
 
-10:30 - 18:00
 
 ## 09.08.2024
 
@@ -32,6 +50,7 @@ trabajo remoto en mi casa
 
 ## 07.08.2024
 
+
 horas trabajadas incluyendo este día: 10.0
 
 10:30 - 15:00
@@ -45,6 +64,7 @@ trabajo en oficina criti.ca cerca metro Manuel Montt
 ### página web de lateral
 
 ### cómo programar la web con Visual Studio Code
+
 
 ## 06.08.24
 

@@ -27,7 +27,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // Calcular la relación de aspecto de la imagen
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
 
-    // Dimensiones máximas del canvas (ajusta según tus necesidades)
+    // Dimensiones máximas del canvas 
     const maxWidth = window.innerWidth;
     const maxHeight = window.innerHeight;
 

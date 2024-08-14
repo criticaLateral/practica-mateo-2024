@@ -99,6 +99,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.preload = () => {
     if (image) {
       img = sketch.loadImage(URL.createObjectURL(image));
+    } else {
+      img = sketch.loadImage("static/imagenDePrueba.png");
     }
   };
 
@@ -124,7 +126,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
 export const inputs = {
   image: {
-    type: "image"
+    type: "image",
   },
   width: {
     type: "number",

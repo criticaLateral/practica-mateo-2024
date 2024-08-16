@@ -1,7 +1,7 @@
 
 
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { width, height, image, color, nivelPosterize } =
+  const { width, height, image, color, nivelThreshold } =
     inputs;
 
   const rows = 32;
@@ -14,12 +14,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
-    imgGraphic.filter(imgGraphic.POSTERIZE, nivelPosterize);
+    imgGraphic.filter(imgGraphic.THRESHOLD, nivelThreshold)
     imgGraphic.blendMode(imgGraphic.MULTIPLY);
     imgGraphic.noStroke();
     imgGraphic.fill(color);
     imgGraphic.rect(0, 0, img.width, img.height);
     imgGraphic.blendMode(imgGraphic.BLEND);
+    
   };
 
   const putImageOnCanvas = () => {
@@ -89,11 +90,14 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   };
 
   sketch.setup = () => {
+
     sketch.createCanvas(width, height);
     if (img) {
       loadImageAndAddFilter();
     }
   };
+
+  let halftoneEnabled = false;
 
   sketch.draw = () => {
     setStylingBase();
@@ -102,10 +106,26 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       putImageOnCanvas();
     }
 
+    if (halftoneEnabled) {
+      imgGraphic.loadPixels();
+
+      for (let x = 0; x < imgGraphic.width; x += stepSize) {
+        for (let y = 0; y < imgGraphic.height; y += stepSize) {
+          const index = (y * imgGraphic.width + x) * 4;
+          const brightness = (imgGraphic.pixels[index] + imgGraphic.pixels[index + 1] + imgGraphic.pixels[index + 2]) / 3;
+          const diameter = map(brightness, 0, 255, 0, stepSize);
+          imgGraphic.ellipse(x, y, diameter, diameter);
+        };
+      };
+    };
+
+    sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+  };
+
     mechanic.done();
   };
 
-};
+
 
 
 export const inputs = {
@@ -124,17 +144,28 @@ export const inputs = {
   },
   color: {
     type: "color",
-    default: "#E94225",
+    default: "#39ff14",
     model: "hex"
   },
-   nivelPosterize: { 
+   nivelThreshold: { 
     type: "number", 
-    min: 2, 
-    max: 255, 
-    step: 1, 
+    min: 0.0, 
+    max: 1.0, 
+    step: 0.01, 
     slider: true, 
-    default: 2 
+    default: 0.5 
    },
+
+   halftoneEnabled: {
+    type: "boolean",
+    default: false,
+  },
+  stepSize: {
+    type: "number", // Agregamos la propiedad "type" con el valor "number"
+    min: 1,
+    max: 50,
+    default: 10,
+  },    
    
 };
 

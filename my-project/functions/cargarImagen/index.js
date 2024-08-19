@@ -1,19 +1,18 @@
+import { Mechanic } from "@mechanic-design/core";
+import { halftoneImage } from 'p5';
 import p5 from 'p5';
 
+
 // import {
-// p5Image,
-// p5,
-// _p5Instance,
-// _getP5Instance,
 // halftoneEnabled,
 // halftoneImage,
 // halftonePatterns,
-// clearRiso
+// clearRiso,
+// drawRiso
 // } from "./p5.riso";
 
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { width, height, image, color, nivelThreshold } =
-    inputs;
+  const { width, height, image, color, nivelThreshold, halftoneEnabled, halftoneImg } = inputs;
 
   const rows = 32;
   const separation = height / rows;
@@ -95,6 +94,16 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.preload = () => {
     if (image) {
       img = sketch.loadImage(URL.createObjectURL(image));
+      if (halftoneEnabled) {
+        halftoneImg = sketch.halftoneImage(imgGraphic, {
+          angle: 45,
+          dotSize: 5,
+          pattern: "circles",
+          noise: 0.1,
+          color: "black",
+          opacity: 0.8
+        });
+      }
     } else {
       img = sketch.loadImage("static/imagenDePrueba.png");
     }
@@ -115,9 +124,18 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       putImageOnCanvas();
     };
 
+    if (img) {
+      if (halftoneEnabled) {
+        sketch.image(halftoneImg, x, y, scaledWidth, scaledHeight);
+      } else {
+        sketch.image(img, x, y, scaledWidth, scaledHeight);
+      };
+    };
+
     sketch.loadImage();
 
     sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+
   };
 
     mechanic.done();
@@ -151,19 +169,18 @@ export const inputs = {
     slider: true, 
     default: 0.5 
    },
-
-    halftoneEnabled: {
+   halftoneEnabled: {
     type: "boolean",
     default: false,
-    label: "Activar Semitono"
+    editable: true
   },
 
-  stepSize: {
-    type: "number", 
-    min: 1,
-    max: 50,
-    default: 10,
-  },    
+  // stepSize: {
+  //   type: "number", 
+  //   min: 1,
+  //   max: 50,
+  //   default: 10,
+  // },    
    
 };
 

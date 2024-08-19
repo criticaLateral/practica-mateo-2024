@@ -1,5 +1,5 @@
 import { Mechanic } from "@mechanic-design/core";
-import { halftoneImage } from 'p5';
+// import { halftoneImage } from 'p5';
 import p5 from 'p5';
 
 
@@ -12,7 +12,7 @@ import p5 from 'p5';
 // } from "./p5.riso";
 
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { width, height, image, color, nivelThreshold, halftoneEnabled, halftoneImg } = inputs;
+  const { width, height, image, color, nivelThreshold, halftoneEnabled, halftoneImg, halftoneImage } = inputs;
 
   const rows = 32;
   const separation = height / rows;
@@ -95,7 +95,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     if (image) {
       img = sketch.loadImage(URL.createObjectURL(image));
       if (halftoneEnabled) {
-        halftoneImg = sketch.halftoneImage(imgGraphic, {
+        halftoneImg = halftoneImage(imgGraphic, {
           angle: 45,
           dotSize: 5,
           pattern: "circles",
@@ -135,6 +135,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     sketch.loadImage();
 
     sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+
+    drawRiso();
 
   };
 

@@ -1,4 +1,15 @@
+import p5 from 'p5';
 
+// import {
+// p5Image,
+// p5,
+// _p5Instance,
+// _getP5Instance,
+// halftoneEnabled,
+// halftoneImage,
+// halftonePatterns,
+// clearRiso
+// } from "./p5.riso";
 
 export const handler = ({ inputs, mechanic, sketch }) => {
   const { width, height, image, color, nivelThreshold } =
@@ -97,35 +108,20 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     }
   };
 
-  let halftoneEnabled = false;
-
   sketch.draw = () => {
     setStylingBase();
 
     if (img)  {
       putImageOnCanvas();
-    }
-
-    if (halftoneEnabled) {
-      imgGraphic.loadPixels();
-
-      for (let x = 0; x < imgGraphic.width; x += stepSize) {
-        for (let y = 0; y < imgGraphic.height; y += stepSize) {
-          const index = (y * imgGraphic.width + x) * 4;
-          const brightness = (imgGraphic.pixels[index] + imgGraphic.pixels[index + 1] + imgGraphic.pixels[index + 2]) / 3;
-          const diameter = map(brightness, 0, 255, 0, stepSize);
-          imgGraphic.ellipse(x, y, diameter, diameter);
-        };
-      };
     };
+
+    sketch.loadImage();
 
     sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
   };
 
     mechanic.done();
-  };
-
-
+};
 
 
 export const inputs = {
@@ -156,12 +152,14 @@ export const inputs = {
     default: 0.5 
    },
 
-   halftoneEnabled: {
+    halftoneEnabled: {
     type: "boolean",
     default: false,
+    label: "Activar Semitono"
   },
+
   stepSize: {
-    type: "number", // Agregamos la propiedad "type" con el valor "number"
+    type: "number", 
     min: 1,
     max: 50,
     default: 10,
@@ -186,4 +184,5 @@ export const presets = {
 
 export const settings = {
   engine: require("@mechanic-design/engine-p5")
+  
 };

@@ -1,18 +1,57 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, nivelUmbral, halftoneEnabled, halftoneImg, halftoneImage } = inputs;
+  const { ancho, altura, imagen, color, nivelUmbral, habilitarHalftone, columnasHalftone} = inputs;
 
   let img;
   let imgGraphic;
+  let imgHalftone;
 
   const loadImageAndAddFilter = () => {
+
     imgGraphic = sketch.createGraphics(img.width, img.height);
+    imgHalftone = sketch.createGraphics(img.width, img.height);
+    
+    imgGraphic.fill(color);
+    imgGraphic.rect(0, 0, img.width, img.height);
     imgGraphic.image(img, 0, 0);
+    imgGraphic.push();
     imgGraphic.filter(imgGraphic.THRESHOLD, nivelUmbral)
     imgGraphic.blendMode(imgGraphic.MULTIPLY);
     imgGraphic.noStroke();
     imgGraphic.fill(color);
     imgGraphic.rect(0, 0, img.width, img.height);
     imgGraphic.blendMode(imgGraphic.BLEND);
+    imgGraphic.pop();
+
+
+    // implementacion adaptada desde
+    // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
+    if (habilitarHalftone) {
+      imgHalftone.fill(255);
+      imgHalftone.rect(0, 0, img.width, img.height);
+      let colTotal = columnasHalftone;
+      let cellSize = img.width / colTotal;
+      let rowTotal = Math.round(img.height / cellSize);
+      let col = 0;
+      let row = 0;
+      for (let i = 0; i < colTotal * rowTotal; i++) {
+        let x = col * cellSize;
+        let y = row * cellSize;
+        col = col + 1;
+
+        if (col >= colTotal) {
+          col = 0;
+          row = row + 1;
+        }
+        x = (x + cellSize / 2);
+        y = (y + cellSize / 2);
+        let colorPixel = imgGraphic.get(x, y);
+        let brillo = imgGraphic.brightness(colorPixel);
+        let amplitud = 10 * brillo / 200.0;
+        imgHalftone.noStroke();
+        imgHalftone.fill(color);
+        imgHalftone.ellipse(x, y, amplitud, amplitud);
+      }
+    }
   };
 
   const putImageOnCanvas = () => {
@@ -63,7 +102,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     const y = (newHeight - scaledHeight) / 2;
 
     // dibujar la imagen en el canvas
-    sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+    if (habilitarHalftone) {
+      sketch.image(imgHalftone, x, y, scaledWidth, scaledHeight);
+    } else {
+      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+    }
+
   };
 
   const setStylingBase = () => {
@@ -127,10 +171,18 @@ export const inputs = {
     slider: true, 
     default: 0.5 
    },
-   halftoneEnabled: {
+   habilitarHalftone: {
     type: "boolean",
     default: false,
     editable: true
+  },
+  columnasHalftone: {
+    type: "number", 
+    min: 10.0, 
+    max: 300.0, 
+    step: 1.00, 
+    slider: true, 
+    default: 100.0
   }
 };
 

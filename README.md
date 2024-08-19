@@ -65,23 +65,18 @@ git stash
 ## instrucciones para lanzar el proyecto desde terminal
 
 ```zsh
-# iniciar nuevo proyecto
-npm init mechanic@latest my-project
-```
-
-```zsh
 # ir al directorio del proyecto
 cd my-project
 ```
 
 ```zsh
-# correr el proyecto
-npm run dev
+# instalar node_modules
+npm install
 ```
 
 ```zsh
-# instalar node_modules
-npm install
+# correr el proyecto
+npm run dev
 ```
 
 ## actualización de objetivos primarios

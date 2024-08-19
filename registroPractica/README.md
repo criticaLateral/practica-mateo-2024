@@ -6,7 +6,7 @@ horas trabajadas incluyendo este día: 28.0
 
 trabajo en oficina criti.ca
 
-11:00 - 17:30 
+11:00 - 17:30
 
 ### imagen en canvas con resize to fit
 
@@ -16,7 +16,6 @@ trabajo en oficina criti.ca
 
 ### carpeta static para uso de foto default
 
-
 ## 12.08.2024
 
 horas trabajadas incluyendo este día: 22.5
@@ -25,12 +24,11 @@ horas trabajadas incluyendo este día: 22.5
 
 trabajo en oficina criti.ca
 
-### pruebas para insertar imagen en el canvas 
+### pruebas para insertar imagen en el canvas
 
 ### resolución de preguntas y errores
 
 ### renderizar una imagen en el canvas con mechanic design
-
 
 ## 09.08.2024
 

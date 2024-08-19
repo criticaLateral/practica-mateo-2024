@@ -1,5 +1,5 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, height, image, color, nivelThreshold, halftoneEnabled, halftoneImg, halftoneImage } = inputs;
+  const { ancho, altura, imagen, color, nivelUmbral, halftoneEnabled, halftoneImg, halftoneImage } = inputs;
 
   let img;
   let imgGraphic;
@@ -7,7 +7,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
-    imgGraphic.filter(imgGraphic.THRESHOLD, nivelThreshold)
+    imgGraphic.filter(imgGraphic.THRESHOLD, nivelUmbral)
     imgGraphic.blendMode(imgGraphic.MULTIPLY);
     imgGraphic.noStroke();
     imgGraphic.fill(color);
@@ -73,15 +73,15 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   };
 
   sketch.preload = () => {
-    if (image) {
-      img = sketch.loadImage(URL.createObjectURL(image));
+    if (imagen) {
+      img = sketch.loadImage(URL.createObjectURL(imagen));
     } else {
       img = sketch.loadImage("static/imagenDePrueba.png");
     }
   };
 
   sketch.setup = () => {
-    sketch.createCanvas(ancho, height);
+    sketch.createCanvas(ancho, altura);
     if (img) {
       loadImageAndAddFilter();
     }
@@ -97,12 +97,11 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     mechanic.done();
   };
 
-   
 };
 
 
 export const inputs = {
-  image: {
+  imagen: {
     type: "image",
   },
   ancho: {
@@ -110,7 +109,7 @@ export const inputs = {
     default: 500,
     editable: true
   },
-  height: {
+  altura: {
     type: "number",
     default: 600,
     editable: true
@@ -120,7 +119,7 @@ export const inputs = {
     default: "#39ff14",
     model: "hex"
   },
-   nivelThreshold: { 
+   nivelUmbral: { 
     type: "number", 
     min: 0.0, 
     max: 1.0, 
@@ -138,15 +137,15 @@ export const inputs = {
 export const presets = {
   vertical: {
     ancho: 1080,
-    height: 1920  
+    altura: 1920  
   },
   horizontal: {
     ancho: 1920,
-    height: 1080
+    altura: 1080
   },
   cuadrado: {
     ancho: 1920,
-    height: 1920
+    altura: 1920
   },
 };
 

@@ -1,17 +1,5 @@
-// import { halftoneImage } from 'p5';
-
-// import {
-// halftoneEnabled,
-// halftoneImage,
-// halftonePatterns,
-// clearRiso,
-// drawRiso
-// } from "./p5.riso";
-
 export const handler = ({ inputs, mechanic, sketch }) => {
   const { width, height, image, color, nivelThreshold, halftoneEnabled, halftoneImg, halftoneImage } = inputs;
-
-  const rows = 32;
 
   let img;
   let imgGraphic;
@@ -170,15 +158,7 @@ export const inputs = {
     type: "boolean",
     default: false,
     editable: true
-  },
-
-  // stepSize: {
-  //   type: "number", 
-  //   min: 1,
-  //   max: 50,
-  //   default: 10,
-  // },    
-   
+  }
 };
 
 export const presets = {

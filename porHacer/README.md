@@ -9,7 +9,9 @@
 3. incluir animaciones para la manipulación de imágenes, en principio, efecto glitch. 
 Referencia: https://p5.glitch.me/ 
 
-4. agregar efecto duotono, manipular imagen para que use sólo dos colores. ![imagen de referencia](ima_568821d.jpeg) 
+4. agregar efecto duotono, manipular imagen para que use sólo dos colores. 
+
+![imagen de referencia](ima_568821d.jpeg) 
 
 ## 21.08.2024 - reunión con Manuel Córdova
 

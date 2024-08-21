@@ -1,5 +1,5 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, nivelUmbral, habilitarHalftone, columnasHalftone} = inputs;
+  const { ancho, altura, imagen, color, habilitarThreshold, nivelUmbral, habilitarHalftone, columnasHalftone} = inputs;
 
   let img;
   let imgGraphic;
@@ -9,24 +9,23 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgHalftone = sketch.createGraphics(img.width, img.height);
-    
-    imgGraphic.fill(color);
-    imgGraphic.rect(0, 0, img.width, img.height);
-    imgGraphic.image(img, 0, 0);
-    imgGraphic.push();
-    imgGraphic.filter(imgGraphic.THRESHOLD, nivelUmbral)
-    imgGraphic.blendMode(imgGraphic.MULTIPLY);
-    imgGraphic.noStroke();
-    imgGraphic.fill(color);
-    imgGraphic.rect(0, 0, img.width, img.height);
-    imgGraphic.blendMode(imgGraphic.BLEND);
-    imgGraphic.pop();
-
+  
+    if (habilitarThreshold) {
+      imgGraphic.push();
+      imgGraphic.filter(imgGraphic.THRESHOLD, nivelUmbral);
+      imgGraphic.blendMode(imgGraphic.MULTIPLY);
+      imgGraphic.noStroke();
+      imgGraphic.fill(color);
+      imgGraphic.rect(0, 0, img.width, img.height);
+      imgGraphic.blendMode(imgGraphic.BLEND);   
+      imgGraphic.pop();
+    }
 
     // implementacion adaptada desde
     // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
+
     if (habilitarHalftone) {
-      imgHalftone.fill(255);
+      imgHalftone.fill(color);
       imgHalftone.rect(0, 0, img.width, img.height);
       let colTotal = columnasHalftone;
       let cellSize = img.width / colTotal;
@@ -48,7 +47,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         let brillo = imgGraphic.brightness(colorPixel);
         let amplitud = 10 * brillo / 200.0;
         imgHalftone.noStroke();
-        imgHalftone.fill(color);
+        imgHalftone.fill(255);
         imgHalftone.ellipse(x, y, amplitud, amplitud);
       }
     }
@@ -100,6 +99,14 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // centrar la imagen en el canvas
     const x = (newWidth - scaledWidth) / 2;
     const y = (newHeight - scaledHeight) / 2;
+
+    if (habilitarHalftone) {
+      sketch.image(imgHalftone, x, y, scaledWidth, scaledHeight);
+    } else if (habilitarThreshold) {
+      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+    } else {
+      sketch.image(img, x, y, scaledWidth, scaledHeight); // Draw original image if neither effect is enabled
+    }
 
     // dibujar la imagen en el canvas
     if (habilitarHalftone) {
@@ -162,6 +169,11 @@ export const inputs = {
     type: "color",
     default: "#39ff14",
     model: "hex"
+  },
+  habilitarThreshold: {
+    type: "boolean",
+    default: false,
+    editable: true
   },
    nivelUmbral: { 
     type: "number", 

@@ -1,5 +1,19 @@
 # registroPractica
 
+## 21.08.2024
+
+horas trabajadas incluyendo este día: 32.0
+
+trabajo remoto
+
+11:00 - 13:00 / 18:00 - 20:00
+
+### reunión con Manuel Córdova
+
+### acercamientos para animar el logo web de lateral
+
+### boolean para efecto threshold
+
 ## 14.08.2024
 
 horas trabajadas incluyendo este día: 28.0

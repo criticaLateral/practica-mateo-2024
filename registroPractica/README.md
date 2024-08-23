@@ -68,7 +68,6 @@ trabajo remoto en mi casa
 
 ## 07.08.2024
 
-
 horas trabajadas incluyendo este día: 10.0
 
 10:30 - 15:00
@@ -82,7 +81,6 @@ trabajo en oficina criti.ca cerca metro Manuel Montt
 ### página web de lateral
 
 ### cómo programar la web con Visual Studio Code
-
 
 ## 06.08.24
 
@@ -114,7 +112,7 @@ inducción presencial con Aarón Montoya
 
 ### uso de Visual Studio Code para actualizar github y registros
 
-### reunión con Manuel Córdova
+### primera reunión con Manuel Córdova
 
 - qué es criti.ca
 - qué es lateral

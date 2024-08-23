@@ -1,25 +1,31 @@
-
-
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { width, height, image, color, nivelThreshold, habilitarThreshold } =
+  const { ancho, altura, imagen, color, nivelThreshold, habilitarThreshold } =
     inputs;
 
   const rows = 32;
-  const separation = height / rows;
+  const separation = altura / rows;
   const availableRows = Array.from({ length: rows }, (_, k) => k);
 
   let img;
   let imgGraphic;
+  let imgThreshold;
 
   const loadImageAndAddFilter = () => {
+
+    // crear graphics del mismo tamano que la imagen
     imgGraphic = sketch.createGraphics(img.width, img.height);
+    imgThreshold = sketch.createGraphics(img.width, img.height);
+
+    // cargar la imagen en graphics
     imgGraphic.image(img, 0, 0);
-    // imgGraphic.filter(imgGraphic.THRESHOLD, nivelThreshold);
-    imgGraphic.blendMode(imgGraphic.MULTIPLY);
-    imgGraphic.noStroke();
-    imgGraphic.fill(color);
-    imgGraphic.rect(0, 0, img.width, img.height);
-    imgGraphic.blendMode(imgGraphic.BLEND);
+    imgThreshold.image(img, 0, 0);
+
+
+    if (habilitarThreshold) {
+      // imgThreshold.filter(imgThreshold.THRESHOLD, nivelThreshold);
+      imgThreshold.filter(imgThreshold.THRESHOLD, nivelThreshold);
+    }
+    
   };
 
   const putImageOnCanvas = () => {
@@ -69,9 +75,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     const x = (newWidth - scaledWidth) / 2;
     const y = (newHeight - scaledHeight) / 2;
 
-    // Dibujar la imagen en el canvas
-    sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
-
+    // dibujar la imagen en el canvas
+    if (habilitarThreshold) {
+      sketch.image(imgThreshold, x, y, scaledWidth, scaledHeight);
+    } else {
+      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+    }
+    
   };
 
   const setStylingBase = () => {
@@ -81,15 +91,15 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   };
 
   sketch.preload = () => {
-    if (image) {
-      img = sketch.loadImage(URL.createObjectURL(image));
+    if (imagen) {
+      img = sketch.loadImage(URL.createObjectURL(imagen));
     } else {
       img = sketch.loadImage("static/imagenDePrueba.png");
     }
   };
 
   sketch.setup = () => {
-    sketch.createCanvas(width, height);
+    sketch.createCanvas(ancho, altura);
     if (img) {
       loadImageAndAddFilter();
     }
@@ -102,12 +112,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       putImageOnCanvas();
     }
 
-    if (habilitarThreshold) {
-      imgGraphic.filter(imgGraphic.THRESHOLD)
-    } else {
-      imgGraphic.filter(imgGraphic.THRESHOLD)
-    }
-
     mechanic.done();
   };
 
@@ -115,15 +119,15 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
 
 export const inputs = {
-  image: {
+  imagen: {
     type: "image",
   },
-  width: {
+  ancho: {
     type: "number",
     default: 500,
     editable: true
   },
-  height: {
+  altura: {
     type: "number",
     default: 600,
     editable: true
@@ -150,17 +154,17 @@ export const inputs = {
 };
 
 export const presets = {
-  Vertical: {
-    width: 1080,
-    height: 1920  
+  vertical: {
+    ancho: 1080,
+    altura: 1920  
   },
-  Horizontal: {
-    width: 1920,
-    height: 1080
+  horizontal: {
+    ancho: 1920,
+    altura: 1080
   },
-  Cuadrado: {
-    width: 1920,
-    height: 1920
+  cuadrado: {
+    ancho: 1920,
+    altura: 1920
   },
 };
 

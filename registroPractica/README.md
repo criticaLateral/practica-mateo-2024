@@ -1,5 +1,19 @@
 # registroPractica
 
+## 23.08.2024
+
+horas trabajadas incluyendo este día: 37.0
+
+trabajo en oficina critica con Aarón
+
+10:00 - 13:00
+
+### reunión con manuel y pablo 
+
+1. desarrollo de maqueta de la víbora para el logo de lateral
+
+### maquetas para los distintos filtros de proyecto de mechanic
+
 ## 21.08.2024
 
 horas trabajadas incluyendo este día: 32.0

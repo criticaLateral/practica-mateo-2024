@@ -127,7 +127,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     if (imagen) {
       img = sketch.loadImage(URL.createObjectURL(imagen));
     } else {
-      img = sketch.loadImage("static/imagenDePrueba.png");
+      img = sketch.loadImage("static/imagenDePrueba02.jpeg");
     }
   };
 

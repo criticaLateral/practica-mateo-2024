@@ -1,5 +1,5 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, color1, color2, nivelThreshold, habilitarThreshold } =
+  const { ancho, altura, imagen, color, colorSecundario, colorPrimario, habilitarColores } =
     inputs;
 
   const rows = 32;
@@ -13,25 +13,23 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
-    
-    imgGraphic.filter(imgGraphic.GRAY);
 
-    // Aplicar efecto duotono directamente
-    imgGraphic.loadPixels();
-    for (let y = 0; y < imgGraphic.height; y++) {
-      for (let x = 0; x < imgGraphic.width; x++) {
-        const index = (x + y * imgGraphic.width) * 4;
-        const gray = imgGraphic.pixels[index]; // Ya está en escala de grises
+if (habilitarColores) {
+  // capa para el color secundario
+  imgGraphic.filter(imgGraphic.GRAY);
+  imgGraphic.blendMode(imgGraphic.SCREEN);
+  imgGraphic.fill(colorSecundario);
+  imgGraphic.noStroke();
+  imgGraphic.rect(0, 0, img.width, img.height);
 
-    const duotoneColor = lerpColor(color1, color2, gray / 255);
-        imgGraphic.pixels[index] = duotoneColor.r;
-        imgGraphic.pixels[index + 1] = duotoneColor.g;
-        imgGraphic.pixels[index + 2] = duotoneColor.b;
-      }
-    }
-    imgGraphic.updatePixels();
-
-  };
+  // capa para color primario
+  imgGraphic.blendMode(imgGraphic.SCREEN);
+  imgGraphic.blendMode(imgGraphic.OVERLAY);
+  imgGraphic.fill(colorPrimario);
+  imgGraphic.noStroke();
+  imgGraphic.rect(0, 0, img.width, img.height);
+ }
+};
 
   const putImageOnCanvas = () => {
   
@@ -86,8 +84,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   const setStylingBase = () => {
     sketch.background("white");
-    sketch.stroke(color);
-    sketch.fill(color);
+    sketch.stroke(colorPrimario);
+    sketch.fill(colorPrimario);
   };
 
   sketch.preload = () => {
@@ -132,14 +130,19 @@ export const inputs = {
     default: 600,
     editable: true
   },
-  color1: {
+  habilitarColores: {
+    type: "boolean",
+    default: false,
+    editable: true
+  },
+  colorPrimario: {
     type: "color",
-    default: "#0000ff",
+    default: "#39ff14",
     model: "hex"
   },
-  color2: {
+  colorSecundario: {
     type: "color",
-    default: "#ffff00",
+    default: "#DE3163",
     model: "hex"
   },
 };

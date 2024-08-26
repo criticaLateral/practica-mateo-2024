@@ -1,6 +1,16 @@
 # registroPractica
 
+## 26.08.2024
+
+horas trabajadas incluyendo este día: 43.0
+
+trabajo en oficina critica 
+
+11:00 - 17:00
+
 ## 23.08.2024
+
+### implementación de efecto para mezclar colores
 
 horas trabajadas incluyendo este día: 37.0
 

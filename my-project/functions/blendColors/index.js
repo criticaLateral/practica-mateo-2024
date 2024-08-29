@@ -1,6 +1,13 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, colorSecundario, colorPrimario, habilitarColores } =
-    inputs;
+  const {
+    ancho,
+    altura,
+    imagen,
+    color,
+    colorSecundario,
+    colorPrimario,
+    habilitarColores,
+  } = inputs;
 
   const rows = 32;
   const separation = altura / rows;
@@ -10,33 +17,31 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   let imgGraphic;
 
   const loadImageAndAddFilter = () => {
-
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
 
-if (habilitarColores) {
-  // capa para el color secundario
-  imgGraphic.filter(imgGraphic.GRAY);
-  imgGraphic.blendMode(imgGraphic.SCREEN);
-  imgGraphic.fill(colorSecundario);
-  imgGraphic.noStroke();
-  imgGraphic.rect(0, 0, img.width, img.height);
+    if (habilitarColores) {
+      // capa para el color secundario
+      imgGraphic.filter(imgGraphic.GRAY);
+      imgGraphic.blendMode(imgGraphic.SCREEN);
+      imgGraphic.fill(colorSecundario);
+      imgGraphic.noStroke();
+      imgGraphic.rect(0, 0, img.width, img.height);
 
-  // capa para color primario
-  imgGraphic.blendMode(imgGraphic.SCREEN);
-  imgGraphic.blendMode(imgGraphic.OVERLAY);
-  imgGraphic.fill(colorPrimario);
-  imgGraphic.noStroke();
-  imgGraphic.rect(0, 0, img.width, img.height);
- }
-};
+      // capa para color primario
+      imgGraphic.blendMode(imgGraphic.SCREEN);
+      imgGraphic.blendMode(imgGraphic.OVERLAY);
+      imgGraphic.fill(colorPrimario);
+      imgGraphic.noStroke();
+      imgGraphic.rect(0, 0, img.width, img.height);
+    }
+  };
 
   const putImageOnCanvas = () => {
-  
     // Calcular la relación de aspecto de la imagen
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
 
-    // Dimensiones máximas del canvas 
+    // Dimensiones máximas del canvas
     const maxWidth = window.innerWidth;
     const maxHeight = window.innerHeight;
 
@@ -61,11 +66,11 @@ if (habilitarColores) {
 
     // Ajustar el tamaño para imágenes cuadradas y evitar cortes
     if (imgGraphic.width === imgGraphic.height) {
-    // Si la imagen es cuadrada, ajustamos al tamaño más pequeño del canvas
+      // Si la imagen es cuadrada, ajustamos al tamaño más pequeño del canvas
       scaledWidth = Math.min(newWidth, newHeight);
       scaledHeight = scaledWidth;
     } else {
-    // Para imágenes no cuadradas, evitamos que se corte
+      // Para imágenes no cuadradas, evitamos que se corte
       if (imgGraphic.width > newWidth) {
         scaledWidth = imgGraphic.width;
       }
@@ -79,7 +84,7 @@ if (habilitarColores) {
     const y = (newHeight - scaledHeight) / 2;
 
     // dibujar la imagen en el canvas
-      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);    
+    sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
   };
 
   const setStylingBase = () => {
@@ -106,15 +111,13 @@ if (habilitarColores) {
   sketch.draw = () => {
     setStylingBase();
 
-    if (img)  {
+    if (img) {
       putImageOnCanvas();
     }
 
     mechanic.done();
   };
-
 };
-
 
 export const inputs = {
   imagen: {
@@ -123,45 +126,45 @@ export const inputs = {
   ancho: {
     type: "number",
     default: 500,
-    editable: true
+    editable: true,
   },
   altura: {
     type: "number",
     default: 600,
-    editable: true
+    editable: true,
   },
   habilitarColores: {
     type: "boolean",
     default: false,
-    editable: true
+    editable: true,
   },
   colorPrimario: {
     type: "color",
     default: "#39ff14",
-    model: "hex"
+    model: "hex",
   },
   colorSecundario: {
     type: "color",
     default: "#DE3163",
-    model: "hex"
+    model: "hex",
   },
 };
 
 export const presets = {
   vertical: {
     ancho: 1080,
-    altura: 1920  
+    altura: 1920,
   },
   horizontal: {
     ancho: 1920,
-    altura: 1080
+    altura: 1080,
   },
   cuadrado: {
     ancho: 1920,
-    altura: 1920
+    altura: 1920,
   },
 };
 
 export const settings = {
-  engine: require("@mechanic-design/engine-p5")
+  engine: require("@mechanic-design/engine-p5"),
 };

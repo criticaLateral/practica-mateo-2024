@@ -1,5 +1,6 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, habilitarHalftone, columnasHalftone} = inputs;
+  const { ancho, altura, imagen, color, habilitarHalftone, columnasHalftone } =
+    inputs;
 
   const rows = 32;
   const separation = altura / rows;
@@ -10,7 +11,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   let imgHalftone;
 
   const loadImageAndAddFilter = () => {
-
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgHalftone = sketch.createGraphics(img.width, img.height);
 
@@ -37,12 +37,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
           col = 0;
           row = row + 1;
         }
-        x = (x + cellSize / 2);
-        y = (y + cellSize / 2);
+        x = x + cellSize / 2;
+        y = y + cellSize / 2;
         let colorPixel = imgGraphic.get(x, y);
         let brillo = imgGraphic.brightness(colorPixel);
-        let amplitud = 10 * brillo / 200.0;
-        imgHalftone.noStroke();
+        let amplitud = (10 * brillo) / 200.0;
+        imgHalftone.stroke();
         imgHalftone.fill(255);
         imgHalftone.ellipse(x, y, amplitud, amplitud);
       }
@@ -50,7 +50,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   };
 
   const putImageOnCanvas = () => {
-  
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
     const maxWidth = window.innerWidth;
     const maxHeight = window.innerHeight;
@@ -93,7 +92,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   const setStylingBase = () => {
     sketch.background("white");
-    sketch.stroke(color);
+    sketch.noStroke();
     sketch.fill(color);
   };
 
@@ -115,9 +114,9 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.draw = () => {
     setStylingBase();
 
-    if (img)  {
+    if (img) {
       putImageOnCanvas();
-    };
+    }
 
     mechanic.done();
   };
@@ -130,45 +129,45 @@ export const inputs = {
   ancho: {
     type: "number",
     default: 500,
-    editable: true
+    editable: true,
   },
   altura: {
     type: "number",
     default: 600,
-    editable: true
+    editable: true,
   },
   color: {
     type: "color",
     default: "#39ff14",
-    model: "hex"
+    model: "hex",
   },
-   habilitarHalftone: {
+  habilitarHalftone: {
     type: "boolean",
     default: false,
-    editable: true
+    editable: true,
   },
   columnasHalftone: {
-    type: "number", 
-    min: 10.0, 
-    max: 300.0, 
-    step: 1.00, 
-    slider: true, 
-    default: 100.0
-  }
+    type: "number",
+    min: 10.0,
+    max: 300.0,
+    step: 1.0,
+    slider: true,
+    default: 100.0,
+  },
 };
 
 export const presets = {
   vertical: {
     ancho: 1080,
-    altura: 1920  
+    altura: 1920,
   },
   horizontal: {
     ancho: 1920,
-    altura: 1080
+    altura: 1080,
   },
   cuadrado: {
     ancho: 1920,
-    altura: 1920
+    altura: 1920,
   },
 };
 

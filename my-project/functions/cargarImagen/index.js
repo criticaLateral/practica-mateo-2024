@@ -1,15 +1,23 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, habilitarThreshold, nivelUmbral, habilitarHalftone, columnasHalftone} = inputs;
+  const {
+    ancho,
+    altura,
+    imagen,
+    color,
+    habilitarThreshold,
+    nivelUmbral,
+    habilitarHalftone,
+    columnasHalftone,
+  } = inputs;
 
   let img;
   let imgGraphic;
   let imgHalftone;
 
   const loadImageAndAddFilter = () => {
-
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgHalftone = sketch.createGraphics(img.width, img.height);
-  
+
     if (habilitarThreshold) {
       imgGraphic.push();
       imgGraphic.filter(imgGraphic.THRESHOLD, nivelUmbral);
@@ -17,7 +25,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgGraphic.noStroke();
       imgGraphic.fill(color);
       imgGraphic.rect(0, 0, img.width, img.height);
-      imgGraphic.blendMode(imgGraphic.BLEND);   
+      imgGraphic.blendMode(imgGraphic.BLEND);
       imgGraphic.pop();
     }
 
@@ -41,11 +49,11 @@ export const handler = ({ inputs, mechanic, sketch }) => {
           col = 0;
           row = row + 1;
         }
-        x = (x + cellSize / 2);
-        y = (y + cellSize / 2);
+        x = x + cellSize / 2;
+        y = y + cellSize / 2;
         let colorPixel = imgGraphic.get(x, y);
         let brillo = imgGraphic.brightness(colorPixel);
-        let amplitud = 10 * brillo / 200.0;
+        let amplitud = (10 * brillo) / 200.0;
         imgHalftone.noStroke();
         imgHalftone.fill(255);
         imgHalftone.ellipse(x, y, amplitud, amplitud);
@@ -54,11 +62,10 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   };
 
   const putImageOnCanvas = () => {
-  
     // calcular la relación de aspecto de la imagen
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
 
-    // dimensiones maximas del canvas 
+    // dimensiones maximas del canvas
     const maxWidth = window.innerWidth;
     const maxHeight = window.innerHeight;
 
@@ -83,11 +90,11 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     // ajustar el tamano para imagenes cuadradas y evitar cortes
     if (imgGraphic.width === imgGraphic.height) {
-    // si la imagen es cuadrada, ajustamos al tamano más pequeño del canvas
+      // si la imagen es cuadrada, ajustamos al tamano más pequeño del canvas
       scaledWidth = Math.min(newWidth, newHeight);
       scaledHeight = scaledWidth;
     } else {
-    // para imagenes no cuadradas, evitamos que se corte
+      // para imagenes no cuadradas, evitamos que se corte
       if (imgGraphic.width > newWidth) {
         scaledWidth = imgGraphic.width;
       }
@@ -114,7 +121,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     } else {
       sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
     }
-
   };
 
   const setStylingBase = () => {
@@ -141,15 +147,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.draw = () => {
     setStylingBase();
 
-    if (img)  {
+    if (img) {
       putImageOnCanvas();
-    };
+    }
 
     mechanic.done();
   };
-
 };
-
 
 export const inputs = {
   imagen: {
@@ -158,58 +162,58 @@ export const inputs = {
   ancho: {
     type: "number",
     default: 500,
-    editable: true
+    editable: true,
   },
   altura: {
     type: "number",
     default: 600,
-    editable: true
+    editable: true,
   },
   color: {
     type: "color",
     default: "#39ff14",
-    model: "hex"
+    model: "hex",
   },
   habilitarThreshold: {
     type: "boolean",
     default: false,
-    editable: true
+    editable: true,
   },
-   nivelUmbral: { 
-    type: "number", 
-    min: 0.0, 
-    max: 1.0, 
-    step: 0.01, 
-    slider: true, 
-    default: 0.5 
-   },
-   habilitarHalftone: {
+  nivelUmbral: {
+    type: "number",
+    min: 0.0,
+    max: 1.0,
+    step: 0.01,
+    slider: true,
+    default: 0.5,
+  },
+  habilitarHalftone: {
     type: "boolean",
     default: false,
-    editable: true
+    editable: true,
   },
   columnasHalftone: {
-    type: "number", 
-    min: 10.0, 
-    max: 300.0, 
-    step: 1.00, 
-    slider: true, 
-    default: 100.0
-  }
+    type: "number",
+    min: 10.0,
+    max: 300.0,
+    step: 1.0,
+    slider: true,
+    default: 100.0,
+  },
 };
 
 export const presets = {
   vertical: {
     ancho: 1080,
-    altura: 1920  
+    altura: 1920,
   },
   horizontal: {
     ancho: 1920,
-    altura: 1080
+    altura: 1080,
   },
   cuadrado: {
     ancho: 1920,
-    altura: 1920
+    altura: 1920,
   },
 };
 

@@ -1,39 +1,19 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, elegirColor, nivelThreshold, habilitarThreshold } =
-    inputs;
-
-  const rows = 32;
-  const separation = altura / rows;
-  const availableRows = Array.from({ length: rows }, (_, k) => k);
+  const { ancho, altura, imagen, color } = inputs;
 
   let img;
   let imgGraphic;
-  let imgThreshold;
 
   const loadImageAndAddFilter = () => {
-
-    // crear graphics del mismo tamano que la imagen
     imgGraphic = sketch.createGraphics(img.width, img.height);
-    imgThreshold = sketch.createGraphics(img.width, img.height);
-
-    // cargar la imagen en graphics
     imgGraphic.image(img, 0, 0);
-    imgThreshold.image(img, 0, 0);
-
-    if (habilitarThreshold) {
-      imgThreshold.filter(imgThreshold.THRESHOLD, nivelThreshold);
-      imgGraphic.fill(elegirColor);
-      imgGraphic.noStroke();
-      imgGraphic.rect(0, 0, img.width, img.height);
-    }
   };
 
   const putImageOnCanvas = () => {
-  
     // Calcular la relación de aspecto de la imagen
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
 
-    // Dimensiones máximas del canvas 
+    // Dimensiones máximas del canvas
     const maxWidth = window.innerWidth;
     const maxHeight = window.innerHeight;
 
@@ -58,11 +38,11 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     // Ajustar el tamaño para imágenes cuadradas y evitar cortes
     if (imgGraphic.width === imgGraphic.height) {
-    // Si la imagen es cuadrada, ajustamos al tamaño más pequeño del canvas
+      // Si la imagen es cuadrada, ajustamos al tamaño más pequeño del canvas
       scaledWidth = Math.min(newWidth, newHeight);
       scaledHeight = scaledWidth;
     } else {
-    // Para imágenes no cuadradas, evitamos que se corte
+      // Para imágenes no cuadradas, evitamos que se corte
       if (imgGraphic.width > newWidth) {
         scaledWidth = imgGraphic.width;
       }
@@ -76,18 +56,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     const y = (newHeight - scaledHeight) / 2;
 
     // dibujar la imagen en el canvas
-    if (habilitarThreshold) {
-      sketch.image(imgThreshold, x, y, scaledWidth, scaledHeight);
-    } else {
-      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
-    }
-    
+    sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
   };
 
   const setStylingBase = () => {
     sketch.background("white");
-    sketch.stroke(elegirColor);
-    sketch.fill(elegirColor);
+    // sketch.stroke(color);
+    // sketch.fill(color);
   };
 
   sketch.preload = () => {
@@ -108,15 +83,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.draw = () => {
     setStylingBase();
 
-    if (img)  {
+    if (img) {
       putImageOnCanvas();
     }
 
     mechanic.done();
   };
-
 };
-
 
 export const inputs = {
   imagen: {
@@ -125,49 +98,30 @@ export const inputs = {
   ancho: {
     type: "number",
     default: 500,
-    editable: true
+    editable: true,
   },
   altura: {
     type: "number",
     default: 600,
-    editable: true
+    editable: true,
   },
-  elegirColor: {
-    type: "color",
-    default: "#39ff14",
-    model: "hex"
-  },
-  habilitarThreshold: {
-    type: "boolean",
-    default: false,
-    editable: true
-  },
-  nivelThreshold: { 
-    type: "number", 
-    min: 0.0, 
-    max: 1.0, 
-    step: 0.01, 
-    slider: true, 
-    default: 0.5 
-   },
-   
 };
 
 export const presets = {
   vertical: {
     ancho: 1080,
-    altura: 1920  
+    altura: 1920,
   },
   horizontal: {
     ancho: 1920,
-    altura: 1080
+    altura: 1080,
   },
   cuadrado: {
     ancho: 1920,
-    altura: 1920
+    altura: 1920,
   },
 };
 
 export const settings = {
-  engine: require("@mechanic-design/engine-p5")
+  engine: require("@mechanic-design/engine-p5"),
 };

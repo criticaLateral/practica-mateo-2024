@@ -1,5 +1,6 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, habilitarPixelado } = inputs;
+  const { ancho, altura, imagen, color, habilitarPixelado, columnasDePixeles } =
+    inputs;
 
   const rows = 32;
   const separation = altura / rows;
@@ -17,8 +18,9 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     if (habilitarPixelado) {
       imgPixelada.fill(color);
+      imgPixelada.noStroke();
       imgPixelada.rect(0, 0, img.width, img.height);
-      let colTotal = 200.0;
+      let colTotal = columnasDePixeles;
       let cellSize = img.width / colTotal;
       let rowTotal = Math.round(img.height / cellSize);
       let col = 0;
@@ -32,15 +34,15 @@ export const handler = ({ inputs, mechanic, sketch }) => {
           col = 0;
           row = row + 1;
         }
-
-        x = x + cellSize;
-        y = y + cellSize;
-        let colorPixel = imgGraphic.get(x, y);
-        let brillo = imgGraphic.brightness(colorPixel);
-        let amplitud = (15 * brillo) / 200.0;
-        imgPixelada.stroke(color);
-        imgPixelada.fill(255);
-        imgPixelada.rect(x, y, amplitud, amplitud);
+        const pixelSize = columnasDePixeles;
+        for (let y = 0; y < img.height; y += pixelSize) {
+          for (let x = 0; x < img.width; x += pixelSize) {
+            const pixelColor = imgGraphic.get(x, y);
+            imgPixelada.fill(pixelColor);
+            imgPixelada.noStroke();
+            imgPixelada.rect(x, y, pixelSize, pixelSize); // Draw pixel squares
+          }
+        }
       }
     }
   };
@@ -96,7 +98,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     if (imagen) {
       img = sketch.loadImage(URL.createObjectURL(imagen));
     } else {
-      img = sketch.loadImage("static/imagenDePrueba02.jpeg");
+      img = sketch.loadImage("static/featured.jpg");
     }
   };
 
@@ -141,6 +143,14 @@ export const inputs = {
     type: "boolean",
     default: false,
     editable: true,
+  },
+  columnasDePixeles: {
+    type: "number",
+    min: 5.0,
+    max: 10.0,
+    step: 1.0,
+    slider: true,
+    default: 5.0,
   },
 };
 

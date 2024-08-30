@@ -42,7 +42,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         let colorPixel = imgGraphic.get(x, y);
         let brillo = imgGraphic.brightness(colorPixel);
         let amplitud = (10 * brillo) / 200.0;
-        imgHalftone.stroke();
+        imgHalftone.noStroke();
         imgHalftone.fill(255);
         imgHalftone.ellipse(x, y, amplitud, amplitud);
       }
@@ -100,7 +100,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     if (imagen) {
       img = sketch.loadImage(URL.createObjectURL(imagen));
     } else {
-      img = sketch.loadImage("static/imagenDePrueba02.jpeg");
+      img = sketch.loadImage("static/featured.jpg");
     }
   };
 

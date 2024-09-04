@@ -1,5 +1,16 @@
 # registroPractica
 
+## 04.09.2024
+
+horas trabajadas incluyendo este día: 53.0
+
+trabajo en oficina critica
+
+10:30 - 17:30
+
+### efecto pixelado
+
+### efecto pixelado + halftoned
 
 ## 29.08.2024
 

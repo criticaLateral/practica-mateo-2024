@@ -16,7 +16,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     imgGraphic.image(img, 0, 0);
     imgPixelada.image(img, 0, 0);
 
-    const threshold = 90;
+    const threshold = 80;
 
     if (habilitarPixelado) {
       imgPixelada.fill(color);
@@ -153,11 +153,11 @@ export const inputs = {
   },
   columnasDePixeles: {
     type: "number",
-    min: 5.0,
+    min: 1.0,
     max: 10.0,
     step: 1.0,
     slider: true,
-    default: 5.0,
+    default: 3.0,
   },
 };
 
@@ -178,4 +178,5 @@ export const presets = {
 
 export const settings = {
   engine: require("@mechanic-design/engine-p5"),
+  optimize: true,
 };

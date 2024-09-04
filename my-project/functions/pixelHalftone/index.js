@@ -16,10 +16,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     imgGraphic.image(img, 0, 0);
     imgPixelada.image(img, 0, 0);
 
+    const threshold = 90;
+
     if (habilitarPixelado) {
+      imgPixelada.fill(color);
       imgGraphic.filter(imgGraphic.GRAY);
       imgPixelada.noStroke();
-      imgPixelada.fill(color);
       imgPixelada.rect(0, 0, img.width, img.height);
       let colTotal = columnasDePixeles;
       let cellSize = img.width / colTotal;
@@ -38,8 +40,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         const pixelSize = columnasDePixeles;
         for (let y = 0; y < img.height; y += pixelSize) {
           for (let x = 0; x < img.width; x += pixelSize) {
-            const pixelColor = imgGraphic.get(x, y);
-            imgPixelada.fill(pixelColor);
+            const grayscaleValue = imgGraphic.get(x, y)[0]; // valor de efecto escala de grises
+            if (grayscaleValue <= threshold) {
+              imgPixelada.fill(0); // pixeles a negro
+            } else {
+              imgPixelada.fill(color); // pixeles a blanco
+            }
             imgPixelada.noStroke();
             imgPixelada.rect(x, y, pixelSize, pixelSize);
           }

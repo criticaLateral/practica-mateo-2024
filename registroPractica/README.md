@@ -1,5 +1,18 @@
 # registroPractica
 
+
+## 29.08.2024
+
+horas trabajadas incluyendo este día: 46.0
+
+trabajo remoto
+
+15:00 - 18:00
+
+### efecto blend color funcionando
+
+### efecto foto pixelada
+
 ## 26.08.2024
 
 horas trabajadas incluyendo este día: 43.0

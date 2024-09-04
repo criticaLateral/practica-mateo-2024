@@ -1,17 +1,55 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color } = inputs;
+  const { ancho, altura, imagen, color, habilitarPixelado, columnasDePixeles } =
+    inputs;
+
+  const rows = 32;
+  const separation = altura / rows;
+  const availableRows = Array.from({ length: rows }, (_, k) => k);
 
   let img;
   let imgGraphic;
+  let imgPixelada;
 
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
+    imgPixelada = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
+    imgPixelada.image(img, 0, 0);
+
+    if (habilitarPixelado) {
+      imgGraphic.filter(imgGraphic.GRAY);
+      imgPixelada.noStroke();
+      imgPixelada.fill(color);
+      imgPixelada.rect(0, 0, img.width, img.height);
+      let colTotal = columnasDePixeles;
+      let cellSize = img.width / colTotal;
+      let rowTotal = Math.round(img.height / cellSize);
+      let col = 0;
+      let row = 0;
+      for (let i = 0; i < colTotal * rowTotal; i++) {
+        let x = col * cellSize;
+        let y = row * cellSize;
+        col = col + 1;
+
+        if (col >= colTotal) {
+          col = 0;
+          row = row + 1;
+        }
+        const pixelSize = columnasDePixeles;
+        for (let y = 0; y < img.height; y += pixelSize) {
+          for (let x = 0; x < img.width; x += pixelSize) {
+            const pixelColor = imgGraphic.get(x, y);
+            imgPixelada.fill(pixelColor);
+            imgPixelada.noStroke();
+            imgPixelada.rect(x, y, pixelSize, pixelSize);
+          }
+        }
+      }
+    }
   };
 
   const putImageOnCanvas = () => {
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
-
     const maxWidth = window.innerWidth;
     const maxHeight = window.innerHeight;
 
@@ -40,16 +78,21 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         scaledHeight = imgGraphic.height;
       }
     }
+
     const x = (newWidth - scaledWidth) / 2;
     const y = (newHeight - scaledHeight) / 2;
 
-    sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+    if (habilitarPixelado) {
+      sketch.image(imgPixelada, x, y, scaledWidth, scaledHeight);
+    } else {
+      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+    }
   };
 
   const setStylingBase = () => {
     sketch.background("white");
-    // sketch.stroke(color);
-    // sketch.fill(color);
+    sketch.noStroke();
+    sketch.fill(color);
   };
 
   sketch.preload = () => {
@@ -91,6 +134,24 @@ export const inputs = {
     type: "number",
     default: 600,
     editable: true,
+  },
+  color: {
+    type: "color",
+    default: "#39ff14",
+    model: "hex",
+  },
+  habilitarPixelado: {
+    type: "boolean",
+    default: false,
+    editable: true,
+  },
+  columnasDePixeles: {
+    type: "number",
+    min: 5.0,
+    max: 10.0,
+    step: 1.0,
+    slider: true,
+    default: 5.0,
   },
 };
 

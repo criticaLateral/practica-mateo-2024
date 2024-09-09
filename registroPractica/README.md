@@ -1,5 +1,15 @@
 # registroPractica
 
+## 09.09.2024
+
+horas trabajadas incluyendo este día: 58.0
+
+trabajo remoto
+
+10:00 - 15:00
+
+### lateral image editor en proceso
+
 ## 04.09.2024
 
 horas trabajadas incluyendo este día: 53.0

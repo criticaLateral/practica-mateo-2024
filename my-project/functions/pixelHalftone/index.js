@@ -2,10 +2,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const { ancho, altura, imagen, color, habilitarPixelado, columnasDePixeles } =
     inputs;
 
-  const rows = 32;
-  const separation = altura / rows;
-  const availableRows = Array.from({ length: rows }, (_, k) => k);
-
   let img;
   let imgGraphic;
   let imgPixelada;
@@ -40,11 +36,14 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         const pixelSize = columnasDePixeles;
         for (let y = 0; y < img.height; y += pixelSize) {
           for (let x = 0; x < img.width; x += pixelSize) {
-            const grayscaleValue = imgGraphic.get(x, y)[0]; // valor de efecto escala de grises
+            // valor de efecto escala de grises
+            const grayscaleValue = imgGraphic.get(x, y)[0]; 
             if (grayscaleValue <= threshold) {
-              imgPixelada.fill(0); // pixeles a negro
+              // pixeles a negro
+              imgPixelada.fill(0); 
             } else {
-              imgPixelada.fill(color); // pixeles a blanco
+              // pixeles a blanco
+              imgPixelada.fill(color); 
             }
             imgPixelada.noStroke();
             imgPixelada.rect(x, y, pixelSize, pixelSize);

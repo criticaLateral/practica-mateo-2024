@@ -92,6 +92,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       }
     }
     const threshold = 80;
+
     if (habilitarPixelado) {
       imgPixelada.fill(colorPrimario);
       imgGraphic.filter(imgGraphic.GRAY);
@@ -114,11 +115,14 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         const pixelSize = columnasDePixeles;
         for (let y = 0; y < img.height; y += pixelSize) {
           for (let x = 0; x < img.width; x += pixelSize) {
-            const grayscaleValue = imgGraphic.get(x, y)[0]; // valor de efecto escala de grises
+            // valor de efecto escala de grises
+            const grayscaleValue = imgGraphic.get(x, y)[0]; 
             if (grayscaleValue <= threshold) {
-              imgPixelada.fill(colorSecundario);
+              // pixeles a negro
+              imgPixelada.fill(0); 
             } else {
-              imgPixelada.fill(colorPrimario);
+              // pixeles a blanco
+              imgPixelada.fill(colorPrimario); 
             }
             imgPixelada.noStroke();
             imgPixelada.rect(x, y, pixelSize, pixelSize);

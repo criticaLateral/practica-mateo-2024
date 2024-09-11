@@ -1,9 +1,30 @@
+// Lateral Image Editor ©
+// v0.0.1
+// @matbutom @montoyamoraga
+
+// parámetros que vamos a usar
+// cargar imagen
+
+// colores
+// primario y secundario
+
+// efecto mezclar colores
+
+// efecto halftone
+// columnas para el efecto (densidad)
+// uso de círculos y cuadrados
+
+// efecto pixelado
+// columnas para el efecto (densidad)
+
+// efecto threshold
+// umbral del efecto
+
 export const handler = ({ inputs, mechanic, sketch }) => {
   const {
     ancho,
     altura,
     imagen,
-    color,
     colorSecundario,
     colorPrimario,
     habilitarColores,
@@ -17,24 +38,21 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     habilitarThreshold,
   } = inputs;
 
+  // variables de los efectos aplicados a las imágenes
+
   let img;
   let imgGraphic;
   let imgHalftone;
   let imgPixelada;
   let imgThreshold;
 
+  // función para cargar imagen y filtros
+
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
 
-    imgHalftone = sketch.createGraphics(img.width, img.height);
-    imgHalftone.image(img, 0, 0);
-
-    imgPixelada = sketch.createGraphics(img.width, img.height);
-    imgPixelada.image(img, 0, 0);
-
-    imgThreshold = sketch.createGraphics(img.width, img.height);
-    imgThreshold.image(img, 0, 0);
+    // variable para aplicar el efecto de Blend Colors
 
     if (habilitarColores) {
       // capa para el color secundario
@@ -52,9 +70,18 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgGraphic.rect(0, 0, img.width, img.height);
     }
 
+    // variable para aplicar efecto Halftone
+
+    imgHalftone = sketch.createGraphics(img.width, img.height);
+    imgHalftone.image(img, 0, 0);
+
     if (habilitarHalftone) {
       imgHalftone.fill(colorPrimario);
       imgHalftone.rect(0, 0, img.width, img.height);
+
+      // cálculos base adaptados de
+      // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
+
       let colTotal = columnasHalftone;
       let cellSize = img.width / colTotal;
       let rowTotal = Math.round(img.height / cellSize);
@@ -75,6 +102,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         let brillo = imgGraphic.brightness(colorPixel);
         let amplitud = (10 * brillo) / 200.0;
 
+        // variable para aplicar efecto de círculos o cuadrados
+
         if (usarCirculos) {
           imgHalftone.noStroke();
           imgHalftone.fill(255);
@@ -91,6 +120,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         }
       }
     }
+
+    imgPixelada = sketch.createGraphics(img.width, img.height);
+    imgPixelada.image(img, 0, 0);
+
+    // variable para efecto de pixelado halftoned
+
     const threshold = 80;
 
     if (habilitarPixelado) {
@@ -98,6 +133,9 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgGraphic.filter(imgGraphic.GRAY);
       imgPixelada.noStroke();
       imgPixelada.rect(0, 0, img.width, img.height);
+
+      // mismos cálculos base de efecto halftone
+
       let colTotal = columnasDePixeles;
       let cellSize = img.width / colTotal;
       let rowTotal = Math.round(img.height / cellSize);
@@ -112,17 +150,18 @@ export const handler = ({ inputs, mechanic, sketch }) => {
           col = 0;
           row = row + 1;
         }
+        // cálculo para llevar pixeles grises a blanco y negro respectivamente
         const pixelSize = columnasDePixeles;
         for (let y = 0; y < img.height; y += pixelSize) {
           for (let x = 0; x < img.width; x += pixelSize) {
             // valor de efecto escala de grises
-            const grayscaleValue = imgGraphic.get(x, y)[0]; 
+            const grayscaleValue = imgGraphic.get(x, y)[0];
             if (grayscaleValue <= threshold) {
               // pixeles a negro
-              imgPixelada.fill(0); 
+              imgPixelada.fill(colorSecundario);
             } else {
               // pixeles a blanco
-              imgPixelada.fill(colorPrimario); 
+              imgPixelada.fill(colorPrimario);
             }
             imgPixelada.noStroke();
             imgPixelada.rect(x, y, pixelSize, pixelSize);
@@ -130,6 +169,11 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         }
       }
     }
+
+    imgThreshold = sketch.createGraphics(img.width, img.height);
+    imgThreshold.image(img, 0, 0);
+
+    // variable para efecto threshold
 
     if (habilitarThreshold) {
       imgThreshold.filter(imgThreshold.THRESHOLD, nivelThreshold);
@@ -139,6 +183,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgGraphic.rect(0, 0, img.width, img.height);
     }
   };
+
+  // cálculos para cargar imagen en el canvas
 
   const putImageOnCanvas = () => {
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
@@ -160,6 +206,9 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     let scaledWidth = newWidth;
     let scaledHeight = newHeight;
 
+    // escalamos el canvas dependiendo del tamaño de la imagen
+    // canvas responsivo a imagen
+
     if (imgGraphic.width === imgGraphic.height) {
       scaledWidth = Math.min(newWidth, newHeight);
       scaledHeight = scaledWidth;
@@ -174,7 +223,14 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     const x = (newWidth - scaledWidth) / 2;
     const y = (newHeight - scaledHeight) / 2;
 
+    // renderizamos imagen
+
     sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
+
+    // activar efectos
+    // halftone
+    // pixelado
+    // threshold
 
     if (habilitarHalftone) {
       sketch.image(imgHalftone, x, y, scaledWidth, scaledHeight);
@@ -275,16 +331,16 @@ export const inputs = {
   habilitarThreshold: {
     type: "boolean",
     default: false,
-    editable: true
+    editable: true,
   },
-  nivelThreshold: { 
-    type: "number", 
-    min: 0.0, 
-    max: 1.0, 
-    step: 0.01, 
-    slider: true, 
-    default: 0.5 
-   },
+  nivelThreshold: {
+    type: "number",
+    min: 0.0,
+    max: 1.0,
+    step: 0.01,
+    slider: true,
+    default: 0.5,
+  },
   colorPrimario: {
     type: "color",
     default: "#39ff14",
@@ -314,10 +370,7 @@ export const presets = {
 
 export const settings = {
   engine: require("@mechanic-design/engine-p5"),
-  optimize: true,
   hideScaleToFit: true,
   hideGenerate: true,
-  debounceInputs: true,
-  debounceDelay: 100,
   hidePresets: true,
 };

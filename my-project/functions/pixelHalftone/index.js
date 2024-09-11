@@ -1,5 +1,5 @@
 export const handler = ({ inputs, mechanic, sketch }) => {
-  const { ancho, altura, imagen, color, habilitarPixelado, columnasDePixeles } =
+  const { ancho, altura, imagen, color, habilitarPixelado, columnasDePixeles, colorPrimario, colorSecundario } =
     inputs;
 
   let img;
@@ -7,6 +7,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   let imgPixelada;
 
   const loadImageAndAddFilter = () => {
+    
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgPixelada = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
@@ -15,7 +16,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     const threshold = 80;
 
     if (habilitarPixelado) {
-      imgPixelada.fill(color);
+      imgPixelada.fill(colorPrimario);
       imgGraphic.filter(imgGraphic.GRAY);
       imgPixelada.noStroke();
       imgPixelada.rect(0, 0, img.width, img.height);
@@ -40,10 +41,10 @@ export const handler = ({ inputs, mechanic, sketch }) => {
             const grayscaleValue = imgGraphic.get(x, y)[0]; 
             if (grayscaleValue <= threshold) {
               // pixeles a negro
-              imgPixelada.fill(0); 
+              imgPixelada.fill(colorSecundario); 
             } else {
               // pixeles a blanco
-              imgPixelada.fill(color); 
+              imgPixelada.fill(colorPrimario); 
             }
             imgPixelada.noStroke();
             imgPixelada.rect(x, y, pixelSize, pixelSize);
@@ -97,7 +98,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   const setStylingBase = () => {
     sketch.background("white");
     sketch.noStroke();
-    sketch.fill(color);
+    sketch.fill(colorPrimario);
   };
 
   sketch.preload = () => {
@@ -140,9 +141,14 @@ export const inputs = {
     default: 600,
     editable: true,
   },
-  color: {
+  colorPrimario: {
     type: "color",
     default: "#39ff14",
+    model: "hex",
+  },
+  colorSecundario: {
+    type: "color",
+    default: "#000000",
     model: "hex",
   },
   habilitarPixelado: {

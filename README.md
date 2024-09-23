@@ -1,5 +1,13 @@
 # practica-mateo-2024
 
+## efectos disponibles en lateralImageEditor
+
+incluir cada efecto por separado
+
+por cada efecto, explicar cada parámetro, incluir varias capturas de imágenes resultantes, con distintos valores del parámetros.xs
+
+agregar las fotos en formato consistente (.jpg?) y subirlas a carpeta docs/
+
 ## manual para terminal
 
 ```zsh

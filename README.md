@@ -2,11 +2,27 @@
 
 ## efectos disponibles en lateralImageEditor
 
-incluir cada efecto por separado
+imagen original
 
-por cada efecto, explicar cada parámetro, incluir varias capturas de imágenes resultantes, con distintos valores del parámetros.xs
+![alt text](blendColors-2024-09-23-18-07.png)
 
-agregar las fotos en formato consistente (.jpg?) y subirlas a carpeta docs/
+efectos a continuación:
+
+con el efecto de Blend Colors, podemos mezclar dos colores a nuestro antojo, en este caso, tenemos una mezcla entre verde y azul
+![alt text](blendColors-2024-09-23-18-08.png)
+
+con el efecto de halftone, podemos transformar la imagen en sólo puntos, en este caso tenemos dos parámetros, una imagen que se renderiza a partir de círculos, y la otra a partir de cuadrados
+![alt text](halftonePruebas-2024-09-23-18-08.png)
+![alt text](<halftonePruebas-2024-09-23-18-08 (1).png>)
+
+con el efecto de pixelado podemos pixelar la imagen y cambiar los colores oscuros y claros de la imagen, además de cambiar la densidad de pixeles de la imagen. También tenemos la opción de un pixelado común bien vintage 
+![alt text](pixelHalftone-2024-09-23-18-11.png)
+![alt text](pixelHalftone-2024-09-23-18-12.png)
+![alt text](pixelado-2024-09-23-18-21.png)
+
+con el efecto threshold, podemos aplicar el efecto drástico de cambiar luces y sombras, a blancos y negros. Podemos cambiar el nivel del efecto a tu antojo
+![alt text](threshold-2024-09-23-18-12.png)
+![alt text](threshold-2024-09-23-18-13.png)
 
 ## manual para terminal
 

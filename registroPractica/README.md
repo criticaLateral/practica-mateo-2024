@@ -1,8 +1,25 @@
 # registroPractica
 
+## próximos días para trabajar
+## miércoles 25.09.2024
+## lunes 30.09.2024
+## miércoles 02.10.2024
+
+## 23.09.2024
+
+horas trabajadas incluyendo este día: 59.5 / 320
+
+trabajo remoto
+
+17:00 - 18:30
+
+reunión remota con aarón
+
+issues y tareas para el resto del semestre
+
 ## 09.09.2024
 
-horas trabajadas incluyendo este día: 58.0
+horas trabajadas incluyendo este día: 58.0 / 320
 
 trabajo remoto
 
@@ -12,7 +29,7 @@ trabajo remoto
 
 ## 04.09.2024
 
-horas trabajadas incluyendo este día: 53.0
+horas trabajadas incluyendo este día: 53.0 / 320
 
 trabajo en oficina critica
 
@@ -24,7 +41,7 @@ trabajo en oficina critica
 
 ## 29.08.2024
 
-horas trabajadas incluyendo este día: 46.0
+horas trabajadas incluyendo este día: 46.0 / 320
 
 trabajo remoto
 
@@ -36,7 +53,7 @@ trabajo remoto
 
 ## 26.08.2024
 
-horas trabajadas incluyendo este día: 43.0
+horas trabajadas incluyendo este día: 43.0 / 320
 
 trabajo en oficina critica 
 
@@ -46,7 +63,7 @@ trabajo en oficina critica
 
 ### implementación de efecto para mezclar colores
 
-horas trabajadas incluyendo este día: 37.0
+horas trabajadas incluyendo este día: 37.0 / 320
 
 trabajo en oficina critica con Aarón
 
@@ -60,7 +77,7 @@ trabajo en oficina critica con Aarón
 
 ## 21.08.2024
 
-horas trabajadas incluyendo este día: 32.0
+horas trabajadas incluyendo este día: 32.0 / 320
 
 trabajo remoto
 
@@ -80,7 +97,7 @@ trabajo remoto
 
 ## 14.08.2024
 
-horas trabajadas incluyendo este día: 28.0
+horas trabajadas incluyendo este día: 28.0 / 320
 
 trabajo en oficina criti.ca
 
@@ -96,7 +113,7 @@ trabajo en oficina criti.ca
 
 ## 12.08.2024
 
-horas trabajadas incluyendo este día: 22.5
+horas trabajadas incluyendo este día: 22.5 / 320
 
 10:30 - 18:00
 
@@ -110,7 +127,7 @@ trabajo en oficina criti.ca
 
 ## 09.08.2024
 
-horas trabajadas incluyendo este día: 14.0
+horas trabajadas incluyendo este día: 14.0 / 320
 
 14:00 - 18:00
 
@@ -126,7 +143,7 @@ trabajo remoto en mi casa
 
 ## 07.08.2024
 
-horas trabajadas incluyendo este día: 10.0
+horas trabajadas incluyendo este día: 10.0 / 320
 
 10:30 - 15:00
 
@@ -142,7 +159,7 @@ trabajo en oficina criti.ca cerca metro Manuel Montt
 
 ## 06.08.24
 
-horas trabajadas incluyendo este día: 4.5
+horas trabajadas incluyendo este día: 4.5 / 320
 
 en UDP, República 180, 4to piso
 

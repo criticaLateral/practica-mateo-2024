@@ -2,6 +2,8 @@
 // v0.0.1
 // @matbutom @montoyamoraga
 
+// manual de uso
+
 // parámetros que vamos a usar
 // cargar imagen
 
@@ -20,14 +22,16 @@
 // efecto threshold
 // umbral del efecto
 
+
+// TODO: explicar que es handler
 export const handler = ({ inputs, mechanic, sketch }) => {
   const {
     ancho,
     altura,
     imagen,
-    colorSecundario,
     colorPrimario,
-    habilitarColores,
+    colorSecundario,
+    habilitarBlend,
     habilitarHalftone,
     columnasHalftone,
     usarCirculos,
@@ -38,23 +42,20 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     habilitarThreshold,
   } = inputs;
 
-  // variables de los efectos aplicados a las imágenes
-
+  // variables de los efectos aplicados a las imagenes
   let img;
   let imgGraphic;
   let imgHalftone;
   let imgPixelada;
   let imgThreshold;
 
-  // función para cargar imagen y filtros
-
+  // funcion para cargar imagen y filtros
   const loadImageAndAddFilter = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
 
-    // variable para aplicar el efecto de Blend Colors
-
-    if (habilitarColores) {
+    // variable para aplicar el efecto de blend colors
+    if (habilitarBlend) {
       // capa para el color secundario
       imgGraphic.filter(imgGraphic.GRAY);
       imgGraphic.blendMode(imgGraphic.SCREEN);
@@ -71,7 +72,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     }
 
     // variable para aplicar efecto Halftone
-
     imgHalftone = sketch.createGraphics(img.width, img.height);
     imgHalftone.image(img, 0, 0);
 
@@ -102,8 +102,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         let brillo = imgGraphic.brightness(colorPixel);
         let amplitud = (10 * brillo) / 200.0;
 
-        // variable para aplicar efecto de círculos o cuadrados
-
+        // variable para aplicar efecto de circulos o cuadrados
+        // NEXT: proxima version, podemos limpiar la logica de estos booleans
         if (usarCirculos) {
           imgHalftone.noStroke();
           imgHalftone.fill(255);
@@ -125,7 +125,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     imgPixelada.image(img, 0, 0);
 
     // variable para efecto de pixelado halftoned
-
     const threshold = 80;
 
     if (habilitarPixelado) {
@@ -134,7 +133,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgPixelada.noStroke();
       imgPixelada.rect(0, 0, img.width, img.height);
 
-      // mismos cálculos base de efecto halftone
+      // mismos calculos base de efecto halftone
 
       let colTotal = columnasDePixeles;
       let cellSize = img.width / colTotal;
@@ -150,7 +149,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
           col = 0;
           row = row + 1;
         }
-        // cálculo para llevar pixeles grises a blanco y negro respectivamente
+        // calculo para llevar pixeles grises a blanco y negro respectivamente
         const pixelSize = columnasDePixeles;
         for (let y = 0; y < img.height; y += pixelSize) {
           for (let x = 0; x < img.width; x += pixelSize) {
@@ -174,7 +173,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     imgThreshold.image(img, 0, 0);
 
     // variable para efecto threshold
-
     if (habilitarThreshold) {
       imgThreshold.filter(imgThreshold.THRESHOLD, nivelThreshold);
       imgThreshold.blendMode(imgGraphic.BLEND);
@@ -184,9 +182,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     }
   };
 
-  // cálculos para cargar imagen en el canvas
-
-  const putImageOnCanvas = () => {
+  // calculos para cargar imagen en el canvas
+  const ponerImagenEnCanvas = () => {
     const imageAspectRatio = imgGraphic.width / imgGraphic.height;
 
     const maxWidth = window.innerWidth;
@@ -251,9 +248,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     }
   };
 
-  const setStylingBase = () => {
+  // explicar que estas son las condiciones de inicio
+  const definirEstiloBase = () => {
+    // fondo blanco
     sketch.background("white");
+    // borde con el color primario
     sketch.stroke(colorPrimario);
+    // relleno con el color primario
     sketch.fill(colorPrimario);
   };
 
@@ -273,10 +274,10 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   };
 
   sketch.draw = () => {
-    setStylingBase();
+    definirEstiloBase();
 
     if (img) {
-      putImageOnCanvas();
+      ponerImagenEnCanvas();
     }
 
     mechanic.done();
@@ -287,7 +288,7 @@ export const inputs = {
   imagen: {
     type: "image",
   },
-  habilitarColores: {
+  habilitarBlend: {
     type: "boolean",
     default: false,
     editable: true,

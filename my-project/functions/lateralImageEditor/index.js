@@ -22,8 +22,9 @@
 // efecto threshold
 // umbral del efecto
 
-
-// TODO: explicar que es handler
+// handler recibe un argumento específico que puede
+// producir distintas variables de diseno basado
+// en el valor de este argumento
 export const handler = ({ inputs, mechanic, sketch }) => {
   const {
     ancho,
@@ -50,7 +51,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   let imgThreshold;
 
   // funcion para cargar imagen y filtros
-  const loadImageAndAddFilter = () => {
+  const cargarImagenYFiltro = () => {
     imgGraphic = sketch.createGraphics(img.width, img.height);
     imgGraphic.image(img, 0, 0);
 
@@ -81,7 +82,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
       // cálculos base adaptados de
       // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
-
       let colTotal = columnasHalftone;
       let cellSize = img.width / colTotal;
       let rowTotal = Math.round(img.height / cellSize);
@@ -124,7 +124,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     imgPixelada = sketch.createGraphics(img.width, img.height);
     imgPixelada.image(img, 0, 0);
 
-    // variable para efecto de pixelado halftoned
+    // variable para efecto de pixelado threshold
     const threshold = 80;
 
     if (habilitarPixelado) {
@@ -134,7 +134,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgPixelada.rect(0, 0, img.width, img.height);
 
       // mismos calculos base de efecto halftone
-
       let colTotal = columnasDePixeles;
       let cellSize = img.width / colTotal;
       let rowTotal = Math.round(img.height / cellSize);
@@ -269,7 +268,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.setup = () => {
     sketch.createCanvas(ancho, altura);
     if (img) {
-      loadImageAndAddFilter();
+      cargarImagenYFiltro();
     }
   };
 

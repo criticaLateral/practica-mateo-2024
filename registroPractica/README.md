@@ -1,9 +1,68 @@
 # registroPractica
 
-## próximos días para trabajar
-## miércoles 25.09.2024
-## lunes 30.09.2024
-## miércoles 02.10.2024
+## 09.10.2024
+
+horas trabajadas incluyendo este día: 84 / 320
+
+trabajo remoto
+
+continuación informe de práctica
+
+continuación curso Just JavaScript
+
+10:00 - 14:00
+
+## 07.10.2024
+
+horas trabajadas incluyendo este día: 80 / 320
+
+trabajo remoto
+
+continuación curso Just JavaScript
+
+continuación informe de práctica
+
+10:00 - 16:00
+
+## 04.10.2024
+
+horas trabajadas incluyendo este día: 79 / 320
+
+trabajo remoto
+
+continuación curso Just JavaScript
+
+14:00 - 19:00
+
+## 02.10.2024
+
+horas trabajadas incluyendo este día: 74 / 320
+
+trabajo remoto
+
+continuación curso Just JavaScript
+
+10:00 - 15:30
+
+## 30.09.2024
+
+horas trabajadas incluyendo este día: 68.5 / 320
+
+trabajo remoto
+
+continuación curso Just JavaScript
+
+12:00 - 17:00
+
+## 25.09.2024
+
+horas trabajadas incluyendo este día: 63.5 / 320
+
+trabajo remoto
+
+inicio curso Just JavaScript
+
+10:00 - 14:00
 
 ## 23.09.2024
 
@@ -16,6 +75,8 @@ trabajo remoto
 reunión remota con aarón
 
 issues y tareas para el resto del semestre
+
+inicio informe práctica
 
 ## 09.09.2024
 

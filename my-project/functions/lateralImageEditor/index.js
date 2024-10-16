@@ -287,6 +287,16 @@ export const inputs = {
   imagen: {
     type: "image",
   },
+  colorPrimario: {
+    type: "color",
+    default: "#39ff14",
+    model: "hex",
+  },
+  colorSecundario: {
+    type: "color",
+    default: "#DE3163",
+    model: "hex",
+  },
   habilitarBlend: {
     type: "boolean",
     default: false,
@@ -341,16 +351,7 @@ export const inputs = {
     slider: true,
     default: 0.5,
   },
-  colorPrimario: {
-    type: "color",
-    default: "#39ff14",
-    model: "hex",
-  },
-  colorSecundario: {
-    type: "color",
-    default: "#DE3163",
-    model: "hex",
-  },
+ 
 };
 
 export const presets = {

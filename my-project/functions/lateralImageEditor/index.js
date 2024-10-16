@@ -34,7 +34,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     colorPrimario,
     colorSecundario,
     habilitarBlend,
-    habilitarHalftone,
+    habilitarBitmap,
     columnasHalftone,
     tipoBitmap,
     habilitarPixelado,
@@ -44,7 +44,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   } = inputs;
 
   // variables de los efectos aplicados a las imagenes
-  let img;
+  let imgOriginal;
   let imgGraphic;
   let imgBitMap;
   let imgPixelada;
@@ -52,8 +52,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   // funcion para cargar imagen y filtros
   const cargarImagenYFiltro = () => {
-    imgGraphic = sketch.createGraphics(img.width, img.height);
-    imgGraphic.image(img, 0, 0);
+    imgGraphic = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
+    imgGraphic.image(imgOriginal, 0, 0);
 
     // variable para aplicar el efecto de blend colors
     if (habilitarBlend) {
@@ -62,29 +62,29 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgGraphic.blendMode(imgGraphic.SCREEN);
       imgGraphic.fill(colorSecundario);
       imgGraphic.noStroke();
-      imgGraphic.rect(0, 0, img.width, img.height);
+      imgGraphic.rect(0, 0, imgOriginal.width, imgOriginal.height);
 
       // capa para color primario
       imgGraphic.blendMode(imgGraphic.SCREEN);
       imgGraphic.blendMode(imgGraphic.OVERLAY);
       imgGraphic.fill(colorPrimario);
       imgGraphic.noStroke();
-      imgGraphic.rect(0, 0, img.width, img.height);
+      imgGraphic.rect(0, 0, imgOriginal.width, imgOriginal.height);
     }
 
     // variable para aplicar efecto bitmap
-    imgBitMap = sketch.createGraphics(img.width, img.height);
-    imgBitMap.image(img, 0, 0);
+    imgBitMap = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
+    imgBitMap.image(imgOriginal, 0, 0);
 
-    if (habilitarHalftone) {
+    if (habilitarBitmap) {
       imgBitMap.fill(colorPrimario);
-      imgBitMap.rect(0, 0, img.width, img.height);
+      imgBitMap.rect(0, 0, imgOriginal.width, imgOriginal.height);
 
       // cálculos base adaptados de
       // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
       let colTotal = columnasHalftone;
-      let cellSize = img.width / colTotal;
-      let rowTotal = Math.round(img.height / cellSize);
+      let cellSize = imgOriginal.width / colTotal;
+      let rowTotal = Math.round(imgOriginal.height / cellSize);
       let col = 0;
       let row = 0;
       for (let i = 0; i < colTotal * rowTotal; i++) {
@@ -123,8 +123,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       }
     }
 
-    imgPixelada = sketch.createGraphics(img.width, img.height);
-    imgPixelada.image(img, 0, 0);
+    imgPixelada = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
+    imgPixelada.image(imgOriginal, 0, 0);
 
     // variable para efecto de pixelado threshold
     const threshold = 80;
@@ -133,12 +133,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgPixelada.fill(colorPrimario);
       imgGraphic.filter(imgGraphic.GRAY);
       imgPixelada.noStroke();
-      imgPixelada.rect(0, 0, img.width, img.height);
+      imgPixelada.rect(0, 0, imgOriginal.width, imgOriginal.height);
 
       // mismos calculos base de efecto bitmap
       let colTotal = columnasDePixeles;
-      let cellSize = img.width / colTotal;
-      let rowTotal = Math.round(img.height / cellSize);
+      let cellSize = imgOriginal.width / colTotal;
+      let rowTotal = Math.round(imgOriginal.height / cellSize);
       let col = 0;
       let row = 0;
       for (let i = 0; i < colTotal * rowTotal; i++) {
@@ -152,8 +152,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         }
         // calculo para llevar pixeles grises a blanco y negro respectivamente
         const pixelSize = columnasDePixeles;
-        for (let y = 0; y < img.height; y += pixelSize) {
-          for (let x = 0; x < img.width; x += pixelSize) {
+        for (let y = 0; y < imgOriginal.height; y += pixelSize) {
+          for (let x = 0; x < imgOriginal.width; x += pixelSize) {
             // valor de efecto escala de grises
             const grayscaleValue = imgGraphic.get(x, y)[0];
             if (grayscaleValue <= threshold) {
@@ -170,8 +170,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       }
     }
 
-    imgThreshold = sketch.createGraphics(img.width, img.height);
-    imgThreshold.image(img, 0, 0);
+    imgThreshold = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
+    imgThreshold.image(imgOriginal, 0, 0);
 
     // variable para efecto threshold
     if (habilitarThreshold) {
@@ -179,7 +179,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgThreshold.blendMode(imgGraphic.BLEND);
       imgThreshold.fill(colorPrimario);
       imgGraphic.noStroke();
-      imgGraphic.rect(0, 0, img.width, img.height);
+      imgGraphic.rect(0, 0, imgOriginal.width, imgOriginal.height);
     }
   };
 
@@ -230,7 +230,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // pixelado
     // threshold
 
-    if (habilitarHalftone) {
+    if (habilitarBitmap) {
       sketch.image(imgBitMap, x, y, scaledWidth, scaledHeight);
     } else {
       sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
@@ -261,15 +261,15 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
   sketch.preload = () => {
     if (imagen) {
-      img = sketch.loadImage(URL.createObjectURL(imagen));
+      imgOriginal = sketch.loadImage(URL.createObjectURL(imagen));
     } else {
-      img = sketch.loadImage("static/featured.jpg");
+      imgOriginal = sketch.loadImage("static/featured.jpg");
     }
   };
 
   sketch.setup = () => {
     sketch.createCanvas(ancho, altura);
-    if (img) {
+    if (imgOriginal) {
       cargarImagenYFiltro();
     }
   };
@@ -277,7 +277,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   sketch.draw = () => {
     definirEstiloBase();
 
-    if (img) {
+    if (imgOriginal) {
       ponerImagenEnCanvas();
     }
 
@@ -308,7 +308,7 @@ export const inputs = {
     editable: true,
     label: "BLEND - habilitar",
   },
-  habilitarHalftone: {
+  habilitarBitmap: {
     type: "boolean",
     default: false,
     editable: true,
@@ -329,18 +329,6 @@ export const inputs = {
     options: ["circulos", "cuadrados"],
     label: "BITMAP - tipo"
    },
-  // usarCirculos: {
-  //   type: "boolean",
-  //   default: true,
-  //   editable: true,
-  //   label: "BITMAP - usar círculos"
-  // },
-  // usarCuadrados: {
-  //   type: "boolean",
-  //   default: false,
-  //   editable: true,
-  //   label: "BITMAP - usar cuadrados"
-  // },
   habilitarPixelado: {
     type: "boolean",
     default: false,
@@ -369,7 +357,6 @@ export const inputs = {
     slider: true,
     default: 0.5,
   },
-
 };
 
 export const presets = {

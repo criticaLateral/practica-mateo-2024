@@ -50,11 +50,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   // variables de los efectos aplicados a las imagenes
   let imgOriginal;
   let imgGraphic;
-  let imgBitMap;
   let imgPixelada;
   let imgThreshold;
-
-
 
   // funcion para cargar imagen y filtros
   const cargarImagenYFiltro = () => {
@@ -62,7 +59,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // crear un imgGraphic tan grande como el original
     imgGraphic = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
     imgGraphic.image(imgOriginal, 0, 0);
-
 
   // efecto0: blend
 
@@ -87,9 +83,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // efecto2: bitmap
     // efecto3 pixelado
 
-    // variable para aplicar efecto bitmap
-    imgBitMap = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
-    imgBitMap.image(imgOriginal, 0, 0);
 
     if (habilitarBitmap) {
       // imgGraphic.fill(colorPrimario);
@@ -231,28 +224,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
 
-    // activar efectos
-    // bitmap
-    // pixelado
-    // threshold
-
-    if (habilitarBitmap) {
-      sketch.image(imgBitMap, x, y, scaledWidth, scaledHeight);
-    } else {
-      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
-    }
-
-    if (habilitarPixelado) {
-      sketch.image(imgPixelada, x, y, scaledWidth, scaledHeight);
-    } else {
-      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
-    }
-
-    if (habilitarThreshold) {
-      sketch.image(imgThreshold, x, y, scaledWidth, scaledHeight);
-    } else {
-      sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
-    }
   };
 
   // explicar que estas son las condiciones de inicio

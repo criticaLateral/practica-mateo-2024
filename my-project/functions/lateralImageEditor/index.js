@@ -26,8 +26,6 @@
 // producir distintas variables de diseno basado
 // en el valor de este argumento
 
-
-
 export const handler = ({ inputs, mechanic, sketch }) => {
   const {
     ancho,
@@ -38,8 +36,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     habilitarBlend,
     habilitarHalftone,
     columnasHalftone,
-    usarCirculos,
-    usarCuadrados,
+    tipoBitmap,
     habilitarPixelado,
     columnasDePixeles,
     nivelThreshold,
@@ -107,11 +104,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
         // variable para aplicar efecto de circulos o cuadrados
         // NEXT: proxima version, podemos limpiar la logica de estos booleans
-        if (usarCirculos) {
+        if (tipoBitmap == "circulos") {
           imgBitMap.noStroke();
           imgBitMap.fill(255);
           imgBitMap.ellipse(x, y, amplitud, amplitud);
-        } else if (usarCuadrados) {
+        }
+        else if (tipoBitmap == "cuadrados") {
           imgBitMap.noStroke();
           imgBitMap.fill(255);
           imgBitMap.rect(
@@ -324,18 +322,24 @@ export const inputs = {
     default: 100.0,
     label: "BITMAP - columnas"
   },
-  usarCirculos: {
-    type: "boolean",
-    default: true,
-    editable: true,
-    label: "BITMAP - usar círculos"
-  },
-  usarCuadrados: {
-    type: "boolean",
-    default: false,
-    editable: true,
-    label: "BITMAP - usar cuadrados"
-  },
+  tipoBitmap: { 
+    type: "text", 
+    default: "circulos", 
+    options: ["circulos", "cuadrados"],
+    label: "BITMAP - tipo"
+   },
+  // usarCirculos: {
+  //   type: "boolean",
+  //   default: true,
+  //   editable: true,
+  //   label: "BITMAP - usar círculos"
+  // },
+  // usarCuadrados: {
+  //   type: "boolean",
+  //   default: false,
+  //   editable: true,
+  //   label: "BITMAP - usar cuadrados"
+  // },
   habilitarPixelado: {
     type: "boolean",
     default: false,

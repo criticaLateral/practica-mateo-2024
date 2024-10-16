@@ -25,6 +25,9 @@
 // handler recibe un argumento específico que puede
 // producir distintas variables de diseno basado
 // en el valor de este argumento
+
+
+
 export const handler = ({ inputs, mechanic, sketch }) => {
   const {
     ancho,
@@ -286,26 +289,31 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 export const inputs = {
   imagen: {
     type: "image",
+    label: "GENERAL - cargar imagen"
   },
   colorPrimario: {
     type: "color",
     default: "#39ff14",
     model: "hex",
+    label: "GENERAL - color primario"
   },
   colorSecundario: {
     type: "color",
     default: "#DE3163",
     model: "hex",
+    label: "GENERAL - color secundario"
   },
   habilitarBlend: {
     type: "boolean",
     default: false,
     editable: true,
+    label: "BLEND - habilitar",
   },
   habilitarHalftone: {
     type: "boolean",
     default: false,
     editable: true,
+    label: "BITMAP - habilitar",
   },
   columnasHalftone: {
     type: "number",
@@ -314,21 +322,25 @@ export const inputs = {
     step: 1.0,
     slider: true,
     default: 100.0,
+    label: "BITMAP - columnas"
   },
   usarCirculos: {
     type: "boolean",
     default: true,
     editable: true,
+    label: "BITMAP - usar círculos"
   },
   usarCuadrados: {
     type: "boolean",
     default: false,
     editable: true,
+    label: "BITMAP - usar cuadrados"
   },
   habilitarPixelado: {
     type: "boolean",
     default: false,
     editable: true,
+    label: "PIXELADO - habilitar",
   },
   columnasDePixeles: {
     type: "number",
@@ -342,6 +354,7 @@ export const inputs = {
     type: "boolean",
     default: false,
     editable: true,
+    label: "THRESHOLD - habilitar",
   },
   nivelThreshold: {
     type: "number",

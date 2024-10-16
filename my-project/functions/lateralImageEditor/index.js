@@ -42,7 +42,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     habilitarBitmap,
     columnasBitmap,
     habilitarPixelado,
-    columnasDePixeles,
+    resolucionPixelado,
     nivelThreshold,
     habilitarThreshold,
   } = inputs;
@@ -81,10 +81,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
     // efecto1: threshold
 
-        // variable para efecto de pixelado threshold
-        const threshold = 80;
-
- 
 
     // variable para efecto threshold
     if (habilitarThreshold) {
@@ -118,9 +114,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
 
     if (habilitarBitmap) {
-      // imgGraphic.fill(colorPrimario);
-      //imgGraphic.rect(0, 0, imgOriginal.width, imgOriginal.height);
-
       // cálculos base adaptados de
       // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
       let colTotal = columnasBitmap;
@@ -155,53 +148,150 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       }
     }
 
-        // efecto3 pixelado
+    // efecto3 pixelado
 
-    imgPixelada = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
-    imgPixelada.image(imgOriginal, 0, 0);
+    // variable para efecto de pixelado threshold
+    const umbralPixelado = 80;
 
     if (habilitarPixelado) {
-      imgPixelada.fill(colorPrimario);
       imgGraphic.filter(imgGraphic.GRAY);
-      imgPixelada.noStroke();
-      imgPixelada.rect(0, 0, imgOriginal.width, imgOriginal.height);
-
       // mismos calculos base de efecto bitmap
-      let colTotal = columnasDePixeles;
+      let colTotal = resolucionPixelado;
       let cellSize = imgOriginal.width / colTotal;
       let rowTotal = Math.round(imgOriginal.height / cellSize);
       let col = 0;
       let row = 0;
-      for (let i = 0; i < colTotal * rowTotal; i++) {
-        let x = col * cellSize;
-        let y = row * cellSize;
-        col = col + 1;
 
-        if (col >= colTotal) {
-          col = 0;
-          row = row + 1;
+      imgGraphic.loadPixels();
+
+      let rojoPrimario = imgGraphic.red(colorPrimario);
+      let verdePrimario = imgGraphic.green(colorPrimario);
+      let azulPrimario = imgGraphic.blue(colorPrimario);
+
+      let rojoSecundario = imgGraphic.red(colorSecundario);
+      let verdeSecundario = imgGraphic.green(colorSecundario);
+      let azulSecundario = imgGraphic.blue(colorSecundario);
+
+      for (let esquina = 0; esquina < imgGraphic.pixels.length; esquina = esquina + 4 * resolucionPixelado) {
+        // recordamos que en escala de grises, r g y b valen lo mismo
+        // recuperemos el rojo, usemoslo como valor
+        let brilloEsquina = imgGraphic.pixels[esquina]/255.0;
+
+        // calcular color primario RGB segun brillo esquina
+        let primarioR = brilloEsquina *  rojoPrimario;
+        let primarioG = brilloEsquina *  verdePrimario;
+        let primarioB = brilloEsquina *  azulPrimario;
+
+        // calcular color secundario RGB segun brillo esquina
+        let secundarioR = brilloEsquina *  rojoSecundario;
+        let secundarioG = brilloEsquina *  verdeSecundario;
+        let secundarioB = brilloEsquina *  azulSecundario;
+ 
+        // pintar con color secundario
+        if (brilloEsquina < umbralPixelado) {
+
+          // pintar todos los pixeles correspondientes del color secundario
+          for (let restanteY = 0; restanteY < 4 * resolucionPixelado; restanteY = restanteY + 4) { 
+            for (let restanteX = 0; restanteX < 4 * resolucionPixelado; restanteX = restanteX + 4) {
+              // rojo
+              imgGraphic.pixels[esquina + restanteX + restanteY + 0] = secundarioR;
+              // azul
+              imgGraphic.pixels[esquina + restanteX + restanteY + 1] = secundarioG;
+              // verde
+              imgGraphic.pixels[esquina + restanteX + restanteY + 2] = secundarioB;
+              // transparencia
+              imgGraphic.pixels[esquina + restanteX + restanteY + 3] = 255;
+           }
+
         }
-        // calculo para llevar pixeles grises a blanco y negro respectivamente
-        const pixelSize = columnasDePixeles;
-        for (let y = 0; y < imgOriginal.height; y += pixelSize) {
-          for (let x = 0; x < imgOriginal.width; x += pixelSize) {
-            // valor de efecto escala de grises
-            const grayscaleValue = imgGraphic.get(x, y)[0];
-            if (grayscaleValue <= threshold) {
-              // pixeles a negro
-              imgPixelada.fill(colorSecundario);
-            } else {
-              // pixeles a blanco
-              imgPixelada.fill(colorPrimario);
-            }
-            imgPixelada.noStroke();
-            imgPixelada.rect(x, y, pixelSize, pixelSize);
-          }
+        }
+        // pintar con color primario
+        else {
+     // pintar todos los pixeles correspondientes del color secundario
+     for (let restanteY = 0; restanteY < 4 * resolucionPixelado; restanteY = restanteY + 4) { 
+      for (let restanteX = 0; restanteX < 4 * resolucionPixelado; restanteX = restanteX + 4) {
+        // rojo
+        imgGraphic.pixels[esquina + restanteX + restanteY + 0] = primarioR;
+        // azul
+        imgGraphic.pixels[esquina + restanteX + restanteY + 1] = primarioG;
+        // verde
+        imgGraphic.pixels[esquina + restanteX + restanteY + 2] = primarioB;
+        // transparencia
+        imgGraphic.pixels[esquina + restanteX + restanteY + 3] = 255;
+     }
+
+  }
         }
       }
+
+      // for (let i = 0; i < imgGraphic.pixels.length; i = i + 4 * colTotal) {
+
+      //  let brillo = (imgGraphic.pixels[i + 0] + imgGraphic.pixels[i + 1] + imgGraphic.pixels[i + 2]) / 3;
+
+      //   // // rojo
+      //   // imgGraphic.pixels[i + 0] = (brillo / 255) *  rojoPrimario;
+      //   // // azul
+      //   // imgGraphic.pixels[i + 1] = (brillo / 255) * verdePrimario;
+      //   // // verde
+      //   // imgGraphic.pixels[i + 2] = (brillo / 255) * azulPrimario;
+      //   // // transparencia
+      //   // imgGraphic.pixels[i + 3] = 255;
+
+      //   for (let j = 0; j < colTotal; j++) {
+      //     imgGraphic.pixels[i + 0] = (brillo / 255) *  rojoPrimario;
+      //     // azul
+      //     imgGraphic.pixels[i + 1] = (brillo / 255) * verdePrimario;
+      //     // verde
+      //     imgGraphic.pixels[i + 2] = (brillo / 255) * azulPrimario;
+      //     // transparencia
+      //     imgGraphic.pixels[i + 3] = 255;
+      //   }
+
+
+        
+      //   // imgGraphic.rect(i % (imgGraphic.width), i / (imgGraphic.width);
+
+
+     //}
+
+      imgGraphic.updatePixels();
+
+
+
+      // for (let i = 0; i < colTotal * rowTotal; i++) {
+      //   let x = col * cellSize;
+      //   let y = row * cellSize;
+      //   col = col + 1;
+
+      //   if (col >= colTotal) {
+      //     col = 0;
+      //     row = row + 1;
+      //   }
+      //   // calculo para llevar pixeles grises a blanco y negro respectivamente
+      //   const pixelSize = resolucionPixelado;
+      //   for (let y = 0; y < imgGraphic.height; y += pixelSize) {
+      //     for (let x = 0; x < imgGraphic.width; x += pixelSize) {
+      //       // valor de efecto escala de grises
+      //       const grayscaleValue = imgGraphic.get(x, y)[0];
+      //       if (grayscaleValue <= umbralPixelado) {
+      //         // pixeles a negro
+      //         imgGraphic.fill(colorSecundario);
+      //       } else {
+      //         // pixeles a blanco
+      //         imgGraphic.fill(colorPrimario);
+      //       }
+      //       imgGraphic.noStroke();
+      //       imgGraphic.rect(x, y, pixelSize, pixelSize);
+      //     }
+      //   }
+      // }
+
+
+
+
+
+      
     }
-
-
   };
 
   // calculos para cargar imagen en el canvas
@@ -344,14 +434,14 @@ export const inputs = {
     editable: true,
     label: "PIXELADO - habilitar",
   },
-  columnasDePixeles: {
+  resolucionPixelado: {
     type: "number",
-    min: 1.0,
+    min: 2.0,
     max: 10.0,
     step: 1.0,
     slider: true,
     default: 3.0,
-    label: "PIXELADO - columnas",
+    label: "PIXELADO - resolucion",
   },
 
 };

@@ -41,7 +41,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     habilitarBlend,
     habilitarBitmap,
     columnasBitmap,
-    tipoBitmap,
     habilitarPixelado,
     columnasDePixeles,
     nivelThreshold,
@@ -118,12 +117,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         // variable para aplicar efecto de circulos o cuadrados
         // NEXT: proxima version, podemos limpiar la logica de estos booleans
 
-        if (tipoBitmap == "circulos") {
-          imgGraphic.noStroke();
-          imgGraphic.fill(colorPixel);
-          imgGraphic.ellipse(x, y, cellSize, cellSize);
-        }
-        else if (tipoBitmap == "cuadrados") {
           imgGraphic.noStroke();
           imgGraphic.fill(colorPixel);
           imgGraphic.rect(
@@ -132,7 +125,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
             cellSize,
             cellSize
           );
-        }
+        
       }
     }
 
@@ -336,12 +329,7 @@ export const inputs = {
     default: 100.0,
     label: "BITMAP - columnas"
   },
-  tipoBitmap: { 
-    type: "text", 
-    default: "circulos", 
-    options: ["circulos", "cuadrados"],
-    label: "BITMAP - tipo"
-   },
+
   habilitarPixelado: {
     type: "boolean",
     default: false,

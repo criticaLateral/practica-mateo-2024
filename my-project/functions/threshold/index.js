@@ -24,7 +24,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgThreshold.filter(imgThreshold.THRESHOLD, nivelThreshold);
       imgGraphic.fill(elegirColor);
       imgGraphic.noStroke();
-      imgGraphic.rect(0, 0, img.width, img.height);
+      // imgGraphic.rect(0, 0, img.width, img.height);
     }
   };
 

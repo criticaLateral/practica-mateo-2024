@@ -80,8 +80,21 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     }
 
     // efecto1: threshold
-    // efecto2: bitmap
-    // efecto3 pixelado
+
+        // variable para efecto de pixelado threshold
+        const threshold = 80;
+
+ 
+
+    // variable para efecto threshold
+    if (habilitarThreshold) {
+      imgGraphic.filter(imgGraphic.THRESHOLD, nivelThreshold);
+      imgGraphic.blendMode(imgGraphic.BLEND);
+      imgGraphic.fill(colorPrimario);
+    }
+
+
+        // efecto2: bitmap
 
 
     if (habilitarBitmap) {
@@ -122,11 +135,10 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       }
     }
 
+        // efecto3 pixelado
+
     imgPixelada = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
     imgPixelada.image(imgOriginal, 0, 0);
-
-    // variable para efecto de pixelado threshold
-    const threshold = 80;
 
     if (habilitarPixelado) {
       imgPixelada.fill(colorPrimario);
@@ -169,17 +181,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       }
     }
 
-    imgThreshold = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
-    imgThreshold.image(imgOriginal, 0, 0);
 
-    // variable para efecto threshold
-    if (habilitarThreshold) {
-      imgThreshold.filter(imgThreshold.THRESHOLD, nivelThreshold);
-      imgThreshold.blendMode(imgGraphic.BLEND);
-      imgThreshold.fill(colorPrimario);
-      imgGraphic.noStroke();
-      imgGraphic.rect(0, 0, imgOriginal.width, imgOriginal.height);
-    }
   };
 
   // calculos para cargar imagen en el canvas
@@ -285,6 +287,21 @@ export const inputs = {
     editable: true,
     label: "BLEND - habilitar",
   },
+  habilitarThreshold: {
+    type: "boolean",
+    default: false,
+    editable: true,
+    label: "THRESHOLD - habilitar",
+  },
+  nivelThreshold: {
+    type: "number",
+    min: 0.0,
+    max: 1.0,
+    step: 0.01,
+    slider: true,
+    default: 0.5,
+    label: "THRESHOLD - nivel",
+  },
   habilitarBitmap: {
     type: "boolean",
     default: false,
@@ -314,21 +331,9 @@ export const inputs = {
     step: 1.0,
     slider: true,
     default: 3.0,
+    label: "PIXELADO - columnas",
   },
-  habilitarThreshold: {
-    type: "boolean",
-    default: false,
-    editable: true,
-    label: "THRESHOLD - habilitar",
-  },
-  nivelThreshold: {
-    type: "number",
-    min: 0.0,
-    max: 1.0,
-    step: 0.01,
-    slider: true,
-    default: 0.5,
-  },
+
 };
 
 export const presets = {

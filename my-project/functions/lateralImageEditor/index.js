@@ -201,7 +201,6 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         
       }
     }
-
   };
 
   // calculos para cargar imagen en el canvas

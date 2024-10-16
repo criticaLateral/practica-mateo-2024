@@ -151,82 +151,57 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // efecto3 pixelado
 
     // variable para efecto de pixelado threshold
-    const umbralPixelado = 80;
+    let umbralPixelado = 255.0/2.0;
 
     if (habilitarPixelado) {
+
+      let primarioR = imgGraphic.red(colorPrimario);
+      let primarioG = imgGraphic.green(colorPrimario);
+      let primarioB = imgGraphic.blue(colorPrimario);
+
+      let secundarioR = imgGraphic.red(colorSecundario);
+      let secundarioG = imgGraphic.green(colorSecundario);
+      let secundarioB = imgGraphic.blue(colorSecundario);
+
       imgGraphic.filter(imgGraphic.GRAY);
-      // mismos calculos base de efecto bitmap
-      let colTotal = resolucionPixelado;
-      let cellSize = imgOriginal.width / colTotal;
-      let rowTotal = Math.round(imgOriginal.height / cellSize);
+
+      let colTotal = imgOriginal.width / resolucionPixelado;
+      let rowTotal = Math.round(imgOriginal.height / resolucionPixelado);
       let col = 0;
       let row = 0;
+      for (let i = 0; i < colTotal * rowTotal; i++) {
+        let x = col * resolucionPixelado;
+        let y = row * resolucionPixelado;
+        col = col + 1;
 
-      imgGraphic.loadPixels();
-
-      let rojoPrimario = imgGraphic.red(colorPrimario);
-      let verdePrimario = imgGraphic.green(colorPrimario);
-      let azulPrimario = imgGraphic.blue(colorPrimario);
-
-      let rojoSecundario = imgGraphic.red(colorSecundario);
-      let verdeSecundario = imgGraphic.green(colorSecundario);
-      let azulSecundario = imgGraphic.blue(colorSecundario);
-
-      for (let esquina = 0; esquina < imgGraphic.pixels.length; esquina = esquina + 4 * resolucionPixelado) {
-        // recordamos que en escala de grises, r g y b valen lo mismo
-        // recuperemos el rojo, usemoslo como valor
-        let brilloEsquina = imgGraphic.pixels[esquina]/255.0;
-
-        // calcular color primario RGB segun brillo esquina
-        let primarioR = brilloEsquina *  rojoPrimario;
-        let primarioG = brilloEsquina *  verdePrimario;
-        let primarioB = brilloEsquina *  azulPrimario;
-
-        // calcular color secundario RGB segun brillo esquina
-        let secundarioR = brilloEsquina *  rojoSecundario;
-        let secundarioG = brilloEsquina *  verdeSecundario;
-        let secundarioB = brilloEsquina *  azulSecundario;
- 
-        // pintar con color secundario
-        if (brilloEsquina < umbralPixelado) {
-
-          // pintar todos los pixeles correspondientes del color secundario
-          for (let restanteY = 0; restanteY < 4 * resolucionPixelado; restanteY = restanteY + 4) { 
-            for (let restanteX = 0; restanteX < 4 * resolucionPixelado; restanteX = restanteX + 4) {
-              // rojo
-              imgGraphic.pixels[esquina + restanteX + restanteY + 0] = secundarioR;
-              // azul
-              imgGraphic.pixels[esquina + restanteX + restanteY + 1] = secundarioG;
-              // verde
-              imgGraphic.pixels[esquina + restanteX + restanteY + 2] = secundarioB;
-              // transparencia
-              imgGraphic.pixels[esquina + restanteX + restanteY + 3] = 255;
-           }
-
+        if (col >= colTotal) {
+          col = 0;
+          row = row + 1;
         }
+        x = x + resolucionPixelado / 2;
+        y = y + resolucionPixelado / 2;
+        let colorPixel = imgGraphic.get(x, y);
+
+        let brillo = (imgGraphic.red(colorPixel) + imgGraphic.green(colorPixel) + imgGraphic.blue(colorPixel)) / 3.0;
+
+        imgGraphic.noStroke();
+
+        if (brillo < umbralPixelado) {
+          imgGraphic.fill(secundarioR, secundarioG, secundarioB);
         }
-        // pintar con color primario
         else {
-     // pintar todos los pixeles correspondientes del color secundario
-     for (let restanteY = 0; restanteY < 4 * resolucionPixelado; restanteY = restanteY + 4) { 
-      for (let restanteX = 0; restanteX < 4 * resolucionPixelado; restanteX = restanteX + 4) {
-        // rojo
-        imgGraphic.pixels[esquina + restanteX + restanteY + 0] = primarioR;
-        // azul
-        imgGraphic.pixels[esquina + restanteX + restanteY + 1] = primarioG;
-        // verde
-        imgGraphic.pixels[esquina + restanteX + restanteY + 2] = primarioB;
-        // transparencia
-        imgGraphic.pixels[esquina + restanteX + restanteY + 3] = 255;
-     }
-
-  }
+          imgGraphic.fill(primarioR, primarioG, primarioB);
         }
+          imgGraphic.rect(
+            x - resolucionPixelado / 2,
+            y - resolucionPixelado / 2,
+            resolucionPixelado,
+            resolucionPixelado
+          );
+        
       }
-
-      imgGraphic.updatePixels();
-      
     }
+
   };
 
   // calculos para cargar imagen en el canvas

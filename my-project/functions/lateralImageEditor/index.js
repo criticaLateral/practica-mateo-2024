@@ -104,6 +104,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
 
         // variable para aplicar efecto de circulos o cuadrados
         // NEXT: proxima version, podemos limpiar la logica de estos booleans
+
         if (tipoBitmap == "circulos") {
           imgBitMap.noStroke();
           imgBitMap.fill(255);

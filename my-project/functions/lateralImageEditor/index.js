@@ -89,8 +89,28 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     // variable para efecto threshold
     if (habilitarThreshold) {
       imgGraphic.filter(imgGraphic.THRESHOLD, nivelThreshold);
-      imgGraphic.blendMode(imgGraphic.BLEND);
-      imgGraphic.fill(colorPrimario);
+
+      imgGraphic.loadPixels();
+
+      let rojoPrimario = imgGraphic.red(colorPrimario);
+      let verdePrimario = imgGraphic.green(colorPrimario);
+      let azulPrimario = imgGraphic.blue(colorPrimario);
+
+      for (let i = 0; i < imgGraphic.pixels.length; i = i + 4) {
+
+       let brillo = (imgGraphic.pixels[i + 0] + imgGraphic.pixels[i + 1] + imgGraphic.pixels[i + 2]) / 3;
+
+        // rojo
+        imgGraphic.pixels[i + 0] = (brillo / 255) *  rojoPrimario;
+        // azul
+        imgGraphic.pixels[i + 1] = (brillo / 255) * verdePrimario;
+        // verde
+        imgGraphic.pixels[i + 2] = (brillo / 255) * azulPrimario;
+        // transparencia
+        imgGraphic.pixels[i + 3] = 255;
+      }
+
+      imgGraphic.updatePixels();
     }
 
 

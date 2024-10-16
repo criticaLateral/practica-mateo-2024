@@ -224,72 +224,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         }
       }
 
-      // for (let i = 0; i < imgGraphic.pixels.length; i = i + 4 * colTotal) {
-
-      //  let brillo = (imgGraphic.pixels[i + 0] + imgGraphic.pixels[i + 1] + imgGraphic.pixels[i + 2]) / 3;
-
-      //   // // rojo
-      //   // imgGraphic.pixels[i + 0] = (brillo / 255) *  rojoPrimario;
-      //   // // azul
-      //   // imgGraphic.pixels[i + 1] = (brillo / 255) * verdePrimario;
-      //   // // verde
-      //   // imgGraphic.pixels[i + 2] = (brillo / 255) * azulPrimario;
-      //   // // transparencia
-      //   // imgGraphic.pixels[i + 3] = 255;
-
-      //   for (let j = 0; j < colTotal; j++) {
-      //     imgGraphic.pixels[i + 0] = (brillo / 255) *  rojoPrimario;
-      //     // azul
-      //     imgGraphic.pixels[i + 1] = (brillo / 255) * verdePrimario;
-      //     // verde
-      //     imgGraphic.pixels[i + 2] = (brillo / 255) * azulPrimario;
-      //     // transparencia
-      //     imgGraphic.pixels[i + 3] = 255;
-      //   }
-
-
-        
-      //   // imgGraphic.rect(i % (imgGraphic.width), i / (imgGraphic.width);
-
-
-     //}
-
       imgGraphic.updatePixels();
-
-
-
-      // for (let i = 0; i < colTotal * rowTotal; i++) {
-      //   let x = col * cellSize;
-      //   let y = row * cellSize;
-      //   col = col + 1;
-
-      //   if (col >= colTotal) {
-      //     col = 0;
-      //     row = row + 1;
-      //   }
-      //   // calculo para llevar pixeles grises a blanco y negro respectivamente
-      //   const pixelSize = resolucionPixelado;
-      //   for (let y = 0; y < imgGraphic.height; y += pixelSize) {
-      //     for (let x = 0; x < imgGraphic.width; x += pixelSize) {
-      //       // valor de efecto escala de grises
-      //       const grayscaleValue = imgGraphic.get(x, y)[0];
-      //       if (grayscaleValue <= umbralPixelado) {
-      //         // pixeles a negro
-      //         imgGraphic.fill(colorSecundario);
-      //       } else {
-      //         // pixeles a blanco
-      //         imgGraphic.fill(colorPrimario);
-      //       }
-      //       imgGraphic.noStroke();
-      //       imgGraphic.rect(x, y, pixelSize, pixelSize);
-      //     }
-      //   }
-      // }
-
-
-
-
-
       
     }
   };

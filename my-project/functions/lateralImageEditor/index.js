@@ -40,7 +40,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     colorSecundario,
     habilitarBlend,
     habilitarBitmap,
-    columnasHalftone,
+    columnasBitmap,
     tipoBitmap,
     habilitarPixelado,
     columnasDePixeles,
@@ -64,10 +64,8 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     imgGraphic = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
     imgGraphic.image(imgOriginal, 0, 0);
 
-      // efecto0: blend
-  // efecto1: threshold
-  // efecto2: bitmap
-  // efecto3 pixelado
+
+  // efecto0: blend
 
     // variable para aplicar el efecto de blend colors
     if (habilitarBlend) {
@@ -86,17 +84,21 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgGraphic.rect(0, 0, imgOriginal.width, imgOriginal.height);
     }
 
+    // efecto1: threshold
+    // efecto2: bitmap
+    // efecto3 pixelado
+
     // variable para aplicar efecto bitmap
     imgBitMap = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
     imgBitMap.image(imgOriginal, 0, 0);
 
     if (habilitarBitmap) {
-      imgBitMap.fill(colorPrimario);
-      imgBitMap.rect(0, 0, imgOriginal.width, imgOriginal.height);
+      // imgGraphic.fill(colorPrimario);
+      //imgGraphic.rect(0, 0, imgOriginal.width, imgOriginal.height);
 
       // cálculos base adaptados de
       // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
-      let colTotal = columnasHalftone;
+      let colTotal = columnasBitmap;
       let cellSize = imgOriginal.width / colTotal;
       let rowTotal = Math.round(imgOriginal.height / cellSize);
       let col = 0;
@@ -113,25 +115,22 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         x = x + cellSize / 2;
         y = y + cellSize / 2;
         let colorPixel = imgGraphic.get(x, y);
-        let brillo = imgGraphic.brightness(colorPixel);
-        let amplitud = (10 * brillo) / 200.0;
-
         // variable para aplicar efecto de circulos o cuadrados
         // NEXT: proxima version, podemos limpiar la logica de estos booleans
 
         if (tipoBitmap == "circulos") {
-          imgBitMap.noStroke();
-          imgBitMap.fill(255);
-          imgBitMap.ellipse(x, y, amplitud, amplitud);
+          imgGraphic.noStroke();
+          imgGraphic.fill(colorPixel);
+          imgGraphic.ellipse(x, y, cellSize, cellSize);
         }
         else if (tipoBitmap == "cuadrados") {
-          imgBitMap.noStroke();
-          imgBitMap.fill(255);
-          imgBitMap.rect(
-            x - amplitud / 2,
-            y - amplitud / 2,
-            amplitud,
-            amplitud
+          imgGraphic.noStroke();
+          imgGraphic.fill(colorPixel);
+          imgGraphic.rect(
+            x - cellSize / 2,
+            y - cellSize / 2,
+            cellSize,
+            cellSize
           );
         }
       }
@@ -328,7 +327,7 @@ export const inputs = {
     editable: true,
     label: "BITMAP - habilitar",
   },
-  columnasHalftone: {
+  columnasBitmap: {
     type: "number",
     min: 10.0,
     max: 300.0,

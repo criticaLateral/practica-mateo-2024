@@ -12,7 +12,7 @@
 
 // efecto mezclar colores
 
-// efecto halftone
+// efecto bitmap
 // columnas para el efecto (densidad)
 // uso de círculos y cuadrados
 
@@ -49,7 +49,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   // variables de los efectos aplicados a las imagenes
   let img;
   let imgGraphic;
-  let imgHalftone;
+  let imgBitMap;
   let imgPixelada;
   let imgThreshold;
 
@@ -75,13 +75,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgGraphic.rect(0, 0, img.width, img.height);
     }
 
-    // variable para aplicar efecto Halftone
-    imgHalftone = sketch.createGraphics(img.width, img.height);
-    imgHalftone.image(img, 0, 0);
+    // variable para aplicar efecto bitmap
+    imgBitMap = sketch.createGraphics(img.width, img.height);
+    imgBitMap.image(img, 0, 0);
 
     if (habilitarHalftone) {
-      imgHalftone.fill(colorPrimario);
-      imgHalftone.rect(0, 0, img.width, img.height);
+      imgBitMap.fill(colorPrimario);
+      imgBitMap.rect(0, 0, img.width, img.height);
 
       // cálculos base adaptados de
       // https://tabreturn.github.io/code/processing/python/2019/02/09/processing.py_in_ten_lessons-6.3-_halftones.html
@@ -108,13 +108,13 @@ export const handler = ({ inputs, mechanic, sketch }) => {
         // variable para aplicar efecto de circulos o cuadrados
         // NEXT: proxima version, podemos limpiar la logica de estos booleans
         if (usarCirculos) {
-          imgHalftone.noStroke();
-          imgHalftone.fill(255);
-          imgHalftone.ellipse(x, y, amplitud, amplitud);
+          imgBitMap.noStroke();
+          imgBitMap.fill(255);
+          imgBitMap.ellipse(x, y, amplitud, amplitud);
         } else if (usarCuadrados) {
-          imgHalftone.noStroke();
-          imgHalftone.fill(255);
-          imgHalftone.rect(
+          imgBitMap.noStroke();
+          imgBitMap.fill(255);
+          imgBitMap.rect(
             x - amplitud / 2,
             y - amplitud / 2,
             amplitud,
@@ -136,7 +136,7 @@ export const handler = ({ inputs, mechanic, sketch }) => {
       imgPixelada.noStroke();
       imgPixelada.rect(0, 0, img.width, img.height);
 
-      // mismos calculos base de efecto halftone
+      // mismos calculos base de efecto bitmap
       let colTotal = columnasDePixeles;
       let cellSize = img.width / colTotal;
       let rowTotal = Math.round(img.height / cellSize);
@@ -227,12 +227,12 @@ export const handler = ({ inputs, mechanic, sketch }) => {
     sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
 
     // activar efectos
-    // halftone
+    // bitmap
     // pixelado
     // threshold
 
     if (habilitarHalftone) {
-      sketch.image(imgHalftone, x, y, scaledWidth, scaledHeight);
+      sketch.image(imgBitMap, x, y, scaledWidth, scaledHeight);
     } else {
       sketch.image(imgGraphic, x, y, scaledWidth, scaledHeight);
     }
@@ -364,7 +364,7 @@ export const inputs = {
     slider: true,
     default: 0.5,
   },
- 
+
 };
 
 export const presets = {

@@ -10,17 +10,22 @@
 // colores
 // primario y secundario
 
-// efecto mezclar colores
+// hay 4 filtros
+// los ordenamos de mas sutil a mas extremo
+// la imagen pasa por estos 4 filtros en orden
+// y luego es mostrada
 
-// efecto bitmap
+// efecto0: blend
+
+// efecto1: threshold
+// umbral del efecto
+
+// efecto2: bitmap
 // columnas para el efecto (densidad)
 // uso de círculos y cuadrados
 
-// efecto pixelado
+// efecto3 pixelado
 // columnas para el efecto (densidad)
-
-// efecto threshold
-// umbral del efecto
 
 // handler recibe un argumento específico que puede
 // producir distintas variables de diseno basado
@@ -50,10 +55,19 @@ export const handler = ({ inputs, mechanic, sketch }) => {
   let imgPixelada;
   let imgThreshold;
 
+
+
   // funcion para cargar imagen y filtros
   const cargarImagenYFiltro = () => {
+
+    // crear un imgGraphic tan grande como el original
     imgGraphic = sketch.createGraphics(imgOriginal.width, imgOriginal.height);
     imgGraphic.image(imgOriginal, 0, 0);
+
+      // efecto0: blend
+  // efecto1: threshold
+  // efecto2: bitmap
+  // efecto3 pixelado
 
     // variable para aplicar el efecto de blend colors
     if (habilitarBlend) {

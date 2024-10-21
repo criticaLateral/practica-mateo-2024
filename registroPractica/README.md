@@ -1,5 +1,25 @@
 # registroPractica
 
+## 21.10.2024
+
+horas trabajadas incluyendo este día: 96 / 320
+
+trabajo remoto
+
+continuación curso Just JavaScript
+
+11:00 - 15:00
+
+## 16.10.2024
+
+horas trabajadas incluyendo este día: 92 / 320
+
+trabajo en UDP con Aarón
+
+literalImageEditor FUNCIONANDO !!
+
+11:00 - 19:00
+
 ## 09.10.2024
 
 horas trabajadas incluyendo este día: 84 / 320

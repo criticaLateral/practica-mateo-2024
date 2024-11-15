@@ -5,7 +5,7 @@ export const SideBar = ({ children }) => {
   // retorna
   return (
     <aside>
-      <h1>Custom SideBar TODO</h1>
+      <h1></h1>
 
       {children}
       

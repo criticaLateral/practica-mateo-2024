@@ -6,9 +6,11 @@ correr proyecto desde terminal
 
 ```
 cd practica-mateo-2024/my-proyect
-
+```
+```
 npm run dev
-
+```
+```
 localhost:3000
 ```
 barra lateral y usos

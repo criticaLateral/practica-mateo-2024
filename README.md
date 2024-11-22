@@ -8,51 +8,33 @@
 
 en orden de arriba hacia abajo tenemos los siguientes efectos y sliders para editarlos
 
-```
-GENERAL - cargar imagen: podemos subir una imagen desde nuestro pc
-````
-```
-GENERAL - color primario: color a elección 1
-````
-```
-GENERAL - color secundario: color a elección 2
-```
-```
-THRESHOLD - habilitar: habilitar o deshabilitar efecto threshold
-```
-```
-THRESHOLD - nivel: podemos cambiar el nivel del efecto
-```
-```
-BITMAP - habilitar: habilitar o deshabilitar efecto bitmap
-````
-```
-BITMAP - columnas: con las columnas podemos elegir entre más o menos denso se ve el bitmap
-```
-```
-PIXELADO - habilitar: habilitar o deshabilitat efecto de pixelado
-```
-```
-PIXELADO - resolución: podemos elegir densidad de pixeles
-```
+* GENERAL - cargar imagen: podemos subir una imagen desde nuestro pc
+* GENERAL - color primario: color a elección 1
+* GENERAL - color secundario: color a elección 2
+* THRESHOLD - habilitar: habilitar o deshabilitar efecto threshold```
+* THRESHOLD - nivel: podemos cambiar el nivel del efecto
+* BITMAP - habilitar: habilitar o deshabilitar efecto bitmap
+* BITMAP - columnas: con las columnas podemos elegir entre más o menos denso se ve el bitmap
+* PIXELADO - habilitar: habilitar o deshabilitat efecto de pixelado
+* PIXELADO - resolución: podemos elegir densidad de pixeles
 
 ### ejemplos
 
-![alt text](lateralImageEditor-2024-11-15-12-57.png) 
+![imagen con bitmap](./docs/imagen-bitmap.png)
 
-![alt text](lateralImageEditor-2024-11-15-12-56.png) 
+![alt text](lateralImageEditor-2024-11-15-12-56.png)
 
-![alt text](<lateralImageEditor-2024-11-15-12-54 (1).png>) 
+![alt text](<lateralImageEditor-2024-11-15-12-54 (1).png>)
 
-![alt text](lateralImageEditor-2024-11-15-12-54.png) 
+![alt text](lateralImageEditor-2024-11-15-12-54.png)
 
-![alt text](lateralImageEditor-2024-11-15-12-53.png) 
+![alt text](lateralImageEditor-2024-11-15-12-53.png)
 
-![alt text](lateralImageEditor-2024-11-15-12-52.png) 
+![alt text](lateralImageEditor-2024-11-15-12-52.png)
 
-![alt text](lateralImageEditor-2024-11-15-12-51.png) 
+![alt text](lateralImageEditor-2024-11-15-12-51.png)
 
-![alt text](<lateralImageEditor-2024-11-15-12-50 (1).png>) 
+![alt text](<lateralImageEditor-2024-11-15-12-50 (1).png>)
 
 ![alt text](lateralImageEditor-2024-11-15-12-50.png)
 

@@ -20,11 +20,16 @@ en orden de arriba hacia abajo tenemos los siguientes efectos y sliders para edi
 
 ### ejemplos
 
+### imagen con bitmap
+
+EXPLICAR QUE HACE EL EFECTO
+MOSTRAR EN EL MENU COMO SE HABILITA
+
 ![imagen con bitmap](./docs/imagen-bitmap.png)
 
 ![alt text](lateralImageEditor-2024-11-15-12-56.png)
 
-![alt text](<lateralImageEditor-2024-11-15-12-54 (1).png>)
+![alt text](lateralImageEditor-2024-11-15-12-54 (1).png)
 
 ![alt text](lateralImageEditor-2024-11-15-12-54.png)
 
@@ -38,7 +43,7 @@ en orden de arriba hacia abajo tenemos los siguientes efectos y sliders para edi
 
 ![alt text](lateralImageEditor-2024-11-15-12-50.png)
 
-## manual para terminal
+## manual para desarrollo en terminal
 
 ```zsh
 # listar - muestra lo que hay en el directorio
@@ -100,7 +105,7 @@ git pull
 git stash
 ```
 
-## instrucciones para lanzar el proyecto desde terminal
+## instrucciones para correr el proyecto desde terminal
 
 ```zsh
 # ir al directorio del proyecto

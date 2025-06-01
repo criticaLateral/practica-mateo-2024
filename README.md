@@ -16,16 +16,6 @@ en orden de arriba hacia abajo tenemos los siguientes efectos y sliders para edi
 * PIXELADO - habilitar: habilitar o deshabilitat efecto de pixelado
 * PIXELADO - resolución: podemos elegir densidad de pixeles
 
-### ejemplos
-
-### imagen con bitmap
-
-EXPLICAR QUE HACE EL EFECTO
-MOSTRAR EN EL MENU COMO SE HABILITA
-
-![imagen con bitmap](./docs/imagen-bitmap.png)
-
-
 ## manual para desarrollo en terminal
 
 ```zsh

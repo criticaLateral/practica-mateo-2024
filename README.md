@@ -4,8 +4,6 @@
 
 ### barra lateral y usos
 
-![alt text](<Captura de pantalla 2024-11-15 a la(s) 12.42.59.png>)
-
 en orden de arriba hacia abajo tenemos los siguientes efectos y sliders para editarlos
 
 * GENERAL - cargar imagen: podemos subir una imagen desde nuestro pc
@@ -27,21 +25,6 @@ MOSTRAR EN EL MENU COMO SE HABILITA
 
 ![imagen con bitmap](./docs/imagen-bitmap.png)
 
-![alt text](lateralImageEditor-2024-11-15-12-56.png)
-
-![alt text](lateralImageEditor-2024-11-15-12-54 (1).png)
-
-![alt text](lateralImageEditor-2024-11-15-12-54.png)
-
-![alt text](lateralImageEditor-2024-11-15-12-53.png)
-
-![alt text](lateralImageEditor-2024-11-15-12-52.png)
-
-![alt text](lateralImageEditor-2024-11-15-12-51.png)
-
-![alt text](<lateralImageEditor-2024-11-15-12-50 (1).png>)
-
-![alt text](lateralImageEditor-2024-11-15-12-50.png)
 
 ## manual para desarrollo en terminal
 
